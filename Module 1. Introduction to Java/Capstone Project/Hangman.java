@@ -84,10 +84,12 @@ public class Hangman {
         //System.out.println("Lets pick an index:");
         int index = pickRandomIndex();
 
-        System.out.println("Picked index "+index+". The word is: "+words[index]);
+        //System.out.println("Picked index "+index+". The word is: "+words[index]);
         //System.out.println("Lets create placeholder array:");
         int wordLength = words[index].length();
         char[] placeHolderArray = createPlaceholderArray(wordLength);
+        char[] missedGuesses = new char[maxMisses];
+        char[] matchedGuesses = new char[wordLength];
 
         //System.out.println("The placeholder array is ");
 
@@ -96,21 +98,30 @@ public class Hangman {
             System.out.println("Guess a letter:");
             char guess = scan.next().charAt(0);
             int guessMatches = 0;
+            boolean repeatGuess = false;
 
             for(int i=0;i<wordLength;i++){
                 if(words[index].charAt(i)==guess){
-                    placeHolderArray[i] = guess;
-                    guessMatches++;
+                    if(placeHolderArray[i]==guess){
+                        repeatGuess = true;
+                    }else{                    
+                        guessMatches++;
+                        placeHolderArray[i] = guess;
+                    }
                 };
             };
-            if(guessMatches==0){
+            if((guessMatches==0)&&(repeatGuess==false)){
                 System.out.println("That letter is not in this word.");
                 misses++;
+                missedGuesses[misses-1] = guess;
                 printGallows(misses-1);
+            }else if(repeatGuess==true){
+                System.out.println("You already guessed that letter! Try again.");
             }
             guesses += guessMatches;
             printPlaceholderArray(placeHolderArray);
-            System.out.println("misses:"+misses+"\tguesses:"+guesses);
+            System.out.println( "guesses:"+guesses+"\n"
+                                +"misses:"+misses+"\t So far you have missed with these characters: "+String.valueOf(missedGuesses));
         }while((misses<maxMisses)&&(guesses!=wordLength));
 
         if(guesses==wordLength){
