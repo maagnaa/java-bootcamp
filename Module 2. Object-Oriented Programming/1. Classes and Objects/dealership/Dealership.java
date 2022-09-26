@@ -39,15 +39,25 @@ public class Dealership {
      *     • println: \nYour search didn't match any results.\n
      *     • returns 404
      */
-    public String search(String make, int budget) {
+    public int search(String make, int budget){
+
+        int returnValue = 404;
+
         for (int i = 0; i < this.cars.length; i++) {
-            if (this.cars[i] == null) {
-                continue;
-            } else if (this.cars[i].getMake().equals(make) && this.cars[i].getPrice() <= budget) {
-                return "\nWe found one in spot " + i + "\n" + this.cars[i].toString() + "\nAre you interested ?";
-            }
+                if (this.cars[i] == null) {
+                    continue;
+                } else if (this.cars[i].getMake().equals(make) && this.cars[i].getPrice() <= budget) {
+                    System.out.println("\nWe found a car in spot "+i+" \n\n "+ this.cars[i].toString());
+                    System.out.println("If you are interested, type 'yes'");
+                    returnValue = i;
+                } 
         }
-        return "Sorry, we couldn't find any cars.";
+
+        if(returnValue==404){
+            System.out.println("\nYour search didn't match any results.\n");
+        }
+        
+        return returnValue;
     }
 
     public String toString() {
