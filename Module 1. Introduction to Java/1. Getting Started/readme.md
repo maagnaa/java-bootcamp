@@ -1,4 +1,4 @@
-## 1.1 Getting Started
+## Section 1.1 - Getting Started
 
 Goals of this section:
 
