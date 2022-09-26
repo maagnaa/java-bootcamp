@@ -13,6 +13,14 @@ public class Person {
         this.seatNumber = seatNumber;
     }
 
+    // Copy Constructor Method
+    public Person(Person source){
+        this.name = source.name;
+        this.nationality = source.nationality;
+        this.dateOfBirth = source.dateOfBirth;
+        this.seatNumber = source.seatNumber;
+    }
+
     // Setter Methods
     public void setName(String name){
         this.name = name;
