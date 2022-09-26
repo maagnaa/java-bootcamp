@@ -396,17 +396,17 @@ When a class has fields, it needs at least the following methods:
 - Access modifiers can be used to restrict access.
 
 In Java there are 4 types of access modifiers.
-1. Default aka. "package-private"
-        - To make all members within a package visible, but only accesible within the same package.
-2. Public
-        - Allows a class, method or data field to be accesible from any class or package in a Java program.
-3. Private
-        - Lowest accessibility level. 
-        - Methods and fields declared as private are not accessible outside the class.
-        - Private entities are not even visible to the subclasses of the class.
-        - To access private variables we use getter and setter methods.
-4. Protected
-        - Like default, except, in addition to being accesible within the same package, methods and data members are also accessible from subclasses.
+1. **Default aka. "package-private"**
+    - To make all members within a package visible, but only accesible within the same package.
+2. **Public**
+    - Allows a class, method or data field to be accesible from any class or package in a Java program.
+3. **Private**
+    - Lowest accessibility level. 
+    - Methods and fields declared as private are not accessible outside the class.
+    - Private entities are not even visible to the subclasses of the class.
+    - To access private variables we use getter and setter methods.
+4. **Protected**
+    - Like default, except, in addition to being accesible within the same package, methods and data members are also accessible from subclasses.
         
 ### A very very simple example to show syntax
 ```java
