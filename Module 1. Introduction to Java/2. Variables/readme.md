@@ -1,4 +1,4 @@
-## Section 1.2 Variables 
+## Section 1.2 - Variables 
 
 ### Main Data Types
 
