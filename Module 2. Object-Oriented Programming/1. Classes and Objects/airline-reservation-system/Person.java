@@ -87,7 +87,7 @@ public class Person {
      *  Sets this.seat to a random number between 1 -- 11.
      */
     public void chooseSeat(){
-        this.seatNumber = ThreadLocalRandom.current().nextInt(0,12);
+        this.seatNumber = ThreadLocalRandom.current().nextInt(1,12);
     }
 
     /** 
