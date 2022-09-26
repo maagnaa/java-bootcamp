@@ -1,3 +1,7 @@
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
+
 public class Person {
     private String name;
     private String nationality;
@@ -50,8 +54,37 @@ public class Person {
         return this.seatNumber;
     }
 
-    // Print Person Data
+    // Actions
 
+    /** 
+     * Function name :  applyForPassport
+     * @return (boolean)
+     * 
+     * Returns a random boolean of true or false.
+     */
+    public boolean applyForPassport(){
+        int a = ThreadLocalRandom.current().nextInt(0,2);
+
+        if(a==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /**
+     * Function name : chooseSeat
+     * @ return (int)
+     * 
+     *  Sets this.seat to a random number between 1 -- 11.
+     */
+    public void chooseSeat(){
+        this.seatNumber = ThreadLocalRandom.current().nextInt(0,12);
+    }
+
+    /** 
+     * Function name: printPersonData
+     */
     public void printPersonData(){
         System.out.println( "Name: "            + this.name         + "\n" + 
                             "Nationality: "     + this.nationality  + "\n" + 
