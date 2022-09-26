@@ -1,6 +1,5 @@
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
-
-import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
 
 public class Person {
     private String name;
@@ -14,6 +13,7 @@ public class Person {
         this.name = name;
         this.nationality = nationality;
         this.dateOfBirth = dateOfBirth;
+        this.passport = new String[3];
         this.seatNumber = seatNumber;
     }
 
@@ -22,6 +22,7 @@ public class Person {
         this.name = source.name;
         this.nationality = source.nationality;
         this.dateOfBirth = source.dateOfBirth;
+        this.passport = Arrays.copyOf(source.passport, source.passport.length);
         this.seatNumber = source.seatNumber;
     }
 
@@ -34,6 +35,9 @@ public class Person {
     }
     public void setDateOfBirth(String dateOfBirth){
         this.dateOfBirth = dateOfBirth;
+    }
+    public void setPassport(){
+        this.passport = new String[]{this.name, this.nationality, this.dateOfBirth};
     }
     public void setSeatNumber(int seatNumber){
         this.seatNumber = seatNumber;
@@ -50,6 +54,9 @@ public class Person {
     public String getDateOfBirth(){
         return this.dateOfBirth;
     }
+    public String[] getPassport(){
+        return Arrays.copyOf(this.passport, this.passport.length);
+    }
     public int getSeatNumber(){
         return this.seatNumber;
     }
@@ -65,6 +72,7 @@ public class Person {
     public boolean applyForPassport(){
         int a = ThreadLocalRandom.current().nextInt(0,2);
 
+        //System.out.println("DBG @ applyForPassport - a:"+a);
         if(a==0){
             return false;
         }else{
