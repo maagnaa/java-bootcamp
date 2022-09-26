@@ -93,10 +93,11 @@ public class Person {
     /** 
      * Function name: printPersonData
      */
-    public void printPersonData(){
-        System.out.println( "Name: "            + this.name         + "\n" + 
-                            "Nationality: "     + this.nationality  + "\n" + 
-                            "Date of Birth: "   + this.dateOfBirth  + "\n" + 
-                            "Seat Number: "     + this.seatNumber   + "\n");
+    public String toString(){
+        return  (   "Name: "            + this.name                         + "\n" + 
+                    "Nationality: "     + this.nationality                  + "\n" + 
+                    "Date of Birth: "   + this.dateOfBirth                  + "\n" + 
+                    "Seat Number: "     + this.seatNumber                   + "\n" +
+                    "Passport: "        + Arrays.toString(this.passport)    + "\n");
     }
 }
