@@ -1,9 +1,9 @@
 public class Person {
-    String name;
-    String nationality;
-    String dateOfBirth;
-    String[] passport;
-    int seatNumber;
+    private String name;
+    private String nationality;
+    private String dateOfBirth;
+    private String[] passport;
+    private int seatNumber;
 
     // Constructor Method
     public Person(String name, String nationality, String dateOfBirth, int seatNumber){
@@ -11,6 +11,35 @@ public class Person {
         this.nationality = nationality;
         this.dateOfBirth = dateOfBirth;
         this.seatNumber = seatNumber;
+    }
+
+    // Setter Methods
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setNationality(String nationality){
+        this.nationality = nationality;
+    }
+    public void setDateOfBirth(String dateOfBirth){
+        this.dateOfBirth = dateOfBirth;
+    }
+    public void setSeatNumber(int seatNumber){
+        this.seatNumber = seatNumber;
+    }
+
+
+    // Getter Methods
+    public String getName(){
+        return this.name;
+    }
+    public String getNationality(){
+        return this.nationality;
+    }
+    public String getDateOfBirth(){
+        return this.dateOfBirth;
+    }
+    public int getSeatNumber(){
+        return this.seatNumber;
     }
 
     // Print Person Data
