@@ -28,8 +28,8 @@ This repository contains exercises and progress for [The Complete Java Developme
 
 ### Module 2 - Object-Oriented Programming
 1. **Objects**
-    - [ ] 10 Workbooks
-    - [ ] Summary Assignment
+    - [X] 10 Workbooks
+    - [X] Summary Assignment
 2. **Debugging and Exception Handling** 
     - [ ] 10 Workbooks - Debugging
     - [ ] 4 Workbooks - Exception Handling
