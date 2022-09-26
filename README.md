@@ -4,32 +4,40 @@ This repository contains exercises and progress for [The Complete Java Developme
 
 ##  Content Overview
 ### Module 1 - Java Fundamentals
-1. **Getting Started**
+1. **Getting Started** 
     - [X] 1 Workbook
     - [X] Summary Assignment
+    - Completed 16/09/22
 2. **Variables**
     - [X] 5 Workbooks
     - [X] Summary Assignment
+    - Completed 16/09/22
 3. **Booleans and Conditionals**
     - [X] 7 Workbooks
     - [X] Summary Assignment
+    - Completed 19/09/22
 4. **Functions**
     - [X] 5 Workbooks
     - [X] Summary Assignment
+    - Completed 20/09/22
 5. **Loops**
     - [X] 11 Workbooks
     - [X] Summary Assignment - **Game of Pokerito**
     - [X] Summary Assignment - **Game of BlackJack**
+    - Completed 20/09/22
 6. **Arrays**
     - [X] 14 Workbooks
     - [X] Summary Assignment - **Game of TicTacToe**
+    - Completed 23/09/22
 7. **Capstone Project** 
     - [X] Module Summary Assignment - **Game of Hangman**
+    - Completed 23/09/22
 
 ### Module 2 - Object-Oriented Programming
 1. **Objects**
-    - [X] 10 Workbooks
-    - [X] Summary Assignment
+    - [X] Workbook: airline-reservation-system
+    - [X] Summary Assignment: vending-machine
+    - Completed 26/09/22
 2. **Debugging and Exception Handling** 
     - [ ] 10 Workbooks - Debugging
     - [ ] 4 Workbooks - Exception Handling
