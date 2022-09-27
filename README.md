@@ -231,6 +231,7 @@ boolean result2 = !userKey.equals(sysKey);  // Evaluates TRUE
 
 ```
 
+
 ### Flow Control
 
 #### If-Else Syntax
@@ -244,6 +245,12 @@ if(condition1){
  }
 
 ```
+#### Conditional Assignment
+```java
+variable = (comparison) ? (value1) : (value2)
+```
+If comparison evaluates true, variable is assigned the value of value1.
+If comparison evaluates false, variable is assigned the value of value2.
 
 #### Case/Switch Syntax
 ```java
@@ -262,6 +269,7 @@ switch(varToEvaluate){
 }
 
 ```
+
 
 ##  1.4. Functions
 
@@ -485,3 +493,24 @@ Then from elsewhere in app we can:
 Dog nimi = new Dog("Nimi","Kleinspitz",1,"White");
 System.out.println(nimi.toString());
 ```
+### Reference Traps
+|               | Reference Traps                                                       |
+|---------------|-----------------------------------------------------------------------|
+|               |                                                                       |
+| **Trap**      | Setting an array variable equal to another.                           |
+| **Pitfall**   | Both variables share a reference to the same array.                   |
+| **Solution**  | Use Arrays.copyOf() to create a copy of the array.                    |
+|               |                                                                       |
+| **Trap**      | Setting an object variable equal to another.                          |
+| **Pitfall**   | Both variables share a reference to the same object.                  |
+| **Solution**  | Create a *new* copy of the object with a copy constructor.            |
+|               |                                                                       |
+| **Trap**      | Getter returns an array field directly.                               |
+| **Pitfall**   | The outside variable and field share a reference to the same array.   |
+| **Solution**  | Return a copy of the array using Arrays.copyOf().                     |
+|               |                                                                       |
+| **Trap**      | Getter returns an object directly.                                    |
+| **Pitfall**   | The outside variable and field share a reference to the same object.  |
+| **Solution**  | Return a *new* copy of the object.                                    |
+
+## 2.2 Debugging and Exception Handling
