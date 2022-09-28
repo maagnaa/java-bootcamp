@@ -39,7 +39,7 @@ This repository contains exercises and progress for [The Complete Java Developme
     - [X] Summary Assignment: vending-machine
     - Completed 26/09/22
 2. **Debugging and Exception Handling** 
-    - [ ] 10 Workbooks - Debugging
+    - [X] 10 Workbooks - Debugging
     - [ ] 4 Workbooks - Exception Handling
     - [ ] Summary Assignment
 3. **Unit Testing, Stream API and Lambda Expressons**
@@ -99,6 +99,68 @@ Also, to check compiler and/or runtime version: *javac* -version / *java*  -vers
 | **String**  | text               |
 | **char**    | single character   | 
 | **boolean** | true / false       |
+
+#### A note on indexing characters in Java strings
+In Java, we dont index characters in strings like in languages where string is considered an array of char. 
+
+```java
+String stringVariable = "Hello from my String!";
+char char3 = stringVariable[3];
+```
+The above example is a very big nope!
+
+Instead, we use the **.charAt()** method to index the String variable.
+```java
+String stringVariable = "Hello from my String!";
+char char3 = stringVariable.charAt(3);
+```
+
+#### BigDecimal
+
+Also: not covered in this part of the BootCamp is **BigDecimal**. The BigDecimal class provides operations on double numbers for arithmetic, scale handling, rounding, comparison, format conversion and hashing. It can handle very large and very small floating point numbers with great precision but compensating with the time complexity a bit.
+
+```java
+// Java Program to illustrate BigDecimal Class
+  
+import java.math.BigDecimal;
+public class BigDecimalExample
+{
+    public static void main(String[] args) 
+    {
+        // Create two new BigDecimals
+        BigDecimal bd1 = 
+               new BigDecimal("124567890.0987654321");
+        BigDecimal bd2 = 
+               new BigDecimal("987654321.123456789");
+          
+        // Addition of two BigDecimals
+        bd1 = bd1.add(bd2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // Multiplication of two BigDecimals
+        bd1 = bd1.multiply(bd2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // Subtraction of two BigDecimals
+        bd1 = bd1.subtract(bd2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // Division of two BigDecimals
+        bd1 = bd1.divide(bd2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // BigDecima1 raised to the power of 2
+        bd1 = bd1.pow(2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // Negate value of BigDecimal1
+        bd1 = bd1.negate();
+        System.out.println("BigDecimal1 = " + bd1);
+    }    
+}        
+```
+
+
 
 ### Math Operators
 
@@ -514,3 +576,158 @@ System.out.println(nimi.toString());
 | **Solution**  | Return a *new* copy of the object.                                    |
 
 ## 2.2 Debugging and Exception Handling
+
+This section is split in two:
+- Section 2.2.1 - Debugging. 
+- Section 2.2.2 - Exception Handling.
+
+Section 2.2.1 was mostly just exercises in using breakpoints and fixing code with issues. :) Not a lot to say about that. 
+
+### Exception Handling
+
+In Java, an exception is an event that occurs during the execution of a program that disrupts the normal flow of instructions. This is generally an unexpected or unwanted event which can occur either at compile-time or at run-time in application code.
+
+The classs at the top of the exception class hierarchy is the **throwable** class, which has two direct subclasses - **Error** and **Exception**.
+
+![Throwable Hierarchy](https://github.com/maagnaa/java-bootcamp/blob/master/assets/java-exceptions-hierarchy-example.png)
+
+An error indicates a **serious problem that a reasonable application should not try to catch**. These are problems that the application cannot recover from and are dealt with by changing the code to avoid them. 
+
+An example with a method that calls itself recursively until it reaches the maximum size of the Java thread stack and subsequently exits with a **StackOverflowError**:
+
+```java
+public static void print(String myString) {
+    print(myString);
+}
+```
+```java
+Exception in thread "main" java.lang.StackOverflowError
+at StackOverflowErrorExample.print(StackOverflowErrorExample.java:6)
+```
+This method throws the error during execution, and the error is not handled in code. It would not make sense to try to handle it because the application cannot recover from such an error, as when it occurs the maximum thread stack size has already been reached. Instead the application exits and throws the error.
+
+Exceptions on the other hand indicate **conditions that a reasonable application might want to catch**. 
+
+Exceptions may be classified as:
+- **Checked Exceptions**: Problems that occur at compile time. Must be explicitly checked and handled in code.
+- **Unchecked Exceptions**: Problems which occur during run-time. Results from badly written code and should not be catched, rather, the code must be fixed.
+
+#### Checked Exceptions
+
+In general, checked exceptions represent errors outside the control of the program. For example, the constructor of FileInputStream throws FileNotFoundException if the input file does not exist.
+
+Java verifies checked exceptions at compile-time.
+
+##### Checked Exceptions - Example 1: FileNotFound Exception (++ also how to read files with Java)
+```java
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class ReadingFiles {
+    public static void main(String[] args) {
+        try{
+            FileInputStream fis = new FileInputStream("Greetings.txt");
+            Scanner scan = new Scanner(fis);
+            while(scan.hasNextLine()){
+                System.out.println(scan.nextLine());
+            }
+            scan.close();
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }        
+    }
+}
+
+```
+If we wanted to do the same as in the code above, but from a function, we could either try-catch the exception inside the function or specify that the function can throw the exception and force the code that calls the function to handle the exception.
+```java
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class ReadingFilesTwo {
+    public static void main(String[] args) {
+        try{
+            loadData("Greetings.txt");
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadData(String name) throws FileNotFoundException {
+            FileInputStream fis = new FileInputStream(name);
+            Scanner scan = new Scanner(fis);
+            while (scan.hasNextLine()) {
+                System.out.println(scan.nextLine());
+            }
+            scan.close();
+    }
+
+}
+```
+##### Checked Exceptions - Example 2: MalformedURLException (++ how to parse urls!)
+```java
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class ParseURL {
+    public static void main(String[] args) {
+        try{
+            URL url = new URL("https://www.google.com/images");
+            System.out.println("Protocol: \t"+url.getProtocol());
+            System.out.println("Host: \t\t"+url.getHost());
+            System.out.println("Path: \t\t"+url.getPath());
+        }catch(MalformedURLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+}
+```
+```java
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class ParseURLTwo {
+    public static void main(String[] args) {
+        try{
+            parseURL("https://www.google.com/images");
+        }catch(MalformedURLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void parseURL(String link) throws MalformedURLException {
+            URL url = new URL(link);
+            System.out.println("Protocol: \t"+url.getProtocol());
+            System.out.println("Host: \t\t"+url.getHost());
+            System.out.println("Path: \t\t"+url.getPath());
+    }    
+}
+```
+
+
+#### Unchecked Exceptions
+If a program throws an unchecked exception, which is an exception that happens during runtime, it reflects some error inside the program logic.
+
+For example, if we divide a number by 0, Java will throw ArithmeticException:
+
+```java
+private static void divideByZero() {
+    int numerator = 1;
+    int denominator = 0;
+    int result = numerator / denominator;
+}
+```
+
+Java does not verify unchecked exceptions at compile-time. Furthermore, we don't have to declare unchecked exceptions in a method with the throws keyword. And although the above code does not have any errors during compile-time, it will throw ArithmeticException at runtime.
+
+In fact, *never catch an unchecked exception*, instead **fix the code**.
+
+Other common unchecked runtime exceptions:
+
+- NullPointerException
+- IllegalArgumentException
+- InputMismatchException
+
+
