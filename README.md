@@ -39,7 +39,7 @@ This repository contains exercises and progress for [The Complete Java Developme
     - [X] Summary Assignment: vending-machine
     - Completed 26/09/22
 2. **Debugging and Exception Handling** 
-    - [ ] 10 Workbooks - Debugging
+    - [X] 10 Workbooks - Debugging
     - [ ] 4 Workbooks - Exception Handling
     - [ ] Summary Assignment
 3. **Unit Testing, Stream API and Lambda Expressons**
