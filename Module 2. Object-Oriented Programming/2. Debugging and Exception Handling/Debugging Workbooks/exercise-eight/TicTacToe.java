@@ -1,3 +1,28 @@
+/*
+The code was supposed to produce the following output:
+
+>>: X _ O
+
+>>: _ O _
+
+>>: O _ X
+
+O WINS!
+
+Instead, the code produces:
+
+>>: X _ O
+
+>>: _ X _
+
+>>: O _ X
+
+O WINS!
+
+Use breakpoints to visualize the runtime. Watching the output line by line will help you debug the problem.
+ */
+
+
 public class TicTacToe {
     public static void main(String[] args) {
         char[][] array = {
@@ -7,8 +32,8 @@ public class TicTacToe {
         };
         
         for (int i = 0; i < array.length; i++) {
-               array[i][2-i] = 'O';
-               array[2-i][2-i] = 'X';
+            array[i][i] = 'X';
+            array[i][2-i] = 'O';  
         }
 
         printArray(array);

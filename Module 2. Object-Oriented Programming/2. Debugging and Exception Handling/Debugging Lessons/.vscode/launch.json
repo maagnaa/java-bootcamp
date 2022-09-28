@@ -4,7 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
         {
             "type": "java",
             "name": "Launch Current File",
@@ -16,42 +15,42 @@
             "name": "Launch Breakpoints",
             "request": "launch",
             "mainClass": "Breakpoints",
-            "projectName": "2. Debugging and Exception Handling_4334c134"
+            "projectName": "Debugging Lessons_decb1eae"
         },
         {
             "type": "java",
             "name": "Launch Conditionals",
             "request": "launch",
             "mainClass": "Conditionals",
-            "projectName": "2. Debugging and Exception Handling_4334c134"
+            "projectName": "Debugging Lessons_decb1eae"
         },
         {
             "type": "java",
             "name": "Launch Functions",
             "request": "launch",
             "mainClass": "Functions",
-            "projectName": "2. Debugging and Exception Handling_4334c134"
+            "projectName": "Debugging Lessons_decb1eae"
         },
         {
             "type": "java",
             "name": "Launch Loops",
             "request": "launch",
             "mainClass": "Loops",
-            "projectName": "2. Debugging and Exception Handling_4334c134"
+            "projectName": "Debugging Lessons_decb1eae"
         },
         {
             "type": "java",
             "name": "Launch ReferenceTrap",
             "request": "launch",
             "mainClass": "ReferenceTrap",
-            "projectName": "2. Debugging and Exception Handling_4334c134"
+            "projectName": "Debugging Lessons_decb1eae"
         },
         {
             "type": "java",
             "name": "Launch UpperTriangular",
             "request": "launch",
             "mainClass": "UpperTriangular",
-            "projectName": "2. Debugging and Exception Handling_4334c134"
+            "projectName": "Debugging Lessons_decb1eae"
         }
     ]
 }
