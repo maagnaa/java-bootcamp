@@ -1,3 +1,5 @@
+package models;
+
 public class Store {
     Employee[] employees;
 
@@ -10,6 +12,11 @@ public class Store {
     }
 
     public void open() {
+        for(int i=0; i<employees.length;i++){
+            if(employees[i] == null){
+                throw new IllegalStateException("The store cannot be opened unless it is staffed by three employees.");
+            }
+        }
         System.out.println("We're open for business!");
     }
 
