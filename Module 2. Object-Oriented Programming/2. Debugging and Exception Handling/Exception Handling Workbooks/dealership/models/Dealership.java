@@ -15,11 +15,15 @@ public class Dealership {
     }
 
     public Car getCar(int index) {
+        if(this.isEmpty()){
+            throw new IllegalStateException("Cannot sell a car when the dealership is empty!");
+        }
         return new Car(this.cars[index]);
     }
 
     
-    public void sell(int index) {  
+    public void sell(int index) {
+
         this.cars[index].drive();
         this.cars[index] = null;
     }
@@ -32,6 +36,15 @@ public class Dealership {
      *   • returns true if there are no more cars.
      * 
      */
+    public boolean isEmpty(){
+        for(int i=0;i<cars.length;i++){
+            if(cars[i]!=null){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
      
     public String toString() {
