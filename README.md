@@ -514,3 +514,46 @@ System.out.println(nimi.toString());
 | **Solution**  | Return a *new* copy of the object.                                    |
 
 ## 2.2 Debugging and Exception Handling
+
+This section is split in two:
+- Section 2.2.1 - Debugging. 
+- Section 2.2.2 - Exception Handling.
+
+Section 2.2.1 was mostly just exercises in using breakpoints and fixing code with issues. :) Not a lot to say about that. 
+
+### Exception Handling
+
+In Java, an exception is an event that occurs during the execution of a program that disrupts the normal flow of instructions. This is generally an unexpected or unwanted event which can occur either at compile-time or at run-time in application code.
+
+The classs at the top of the exception class hierarchy is the **throwable** class, which has two direct subclasses - **Error** and **Exception**.
+
+![Throwable Hierarchy](https://github.com/maagnaa/java-bootcamp/blob/master/assets/java-exceptions-hierarchy-example.png)
+
+An error indicates a **serious problem that a reasonable application should not try to catch**. These are problems that the application cannot recover from and are dealt with by changing the code to avoid them. 
+
+An example with a method that calls itself recursively until it reaches the maximum size of the Java thread stack and subsequently exits with a **StackOverflowError**:
+
+```java
+public static void print(String myString) {
+    print(myString);
+}
+```
+```java
+Exception in thread "main" java.lang.StackOverflowError
+at StackOverflowErrorExample.print(StackOverflowErrorExample.java:6)
+```
+This method throws the error during execution, and the error is not handled in code. It would not make sense to try to handle it because the application cannot recover from such an error, as when it occurs the maximum thread stack size has already been reached. Instead the application exits and throws the error.
+
+Exceptions on the other hand indicate **conditions that a reasonable application might want to catch**. 
+
+Exceptions may be classified as:
+- **Checked Exceptions**: Problems that occur at compile time. Must be explicitly checked and handled in code.
+- **Unchecked Exceptions**: Problems which occur during run-time. Methods dont have to explicitly catch or throw these exeptions.
+
+#### Checked Exceptions
+
+
+#### Unchecked Exceptions
+
+
+
