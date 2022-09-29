@@ -728,8 +728,121 @@ In fact, *never catch an unchecked exception*, instead **fix the code**.
 
 Other common unchecked runtime exceptions:
 
+- ArrayIndexOutOfBoundsException
 - NullPointerException
 - IllegalArgumentException
 - InputMismatchException
 
+##### Unchecked Exceptions - Example 1: ArrayIndexOutOfBoundsException
+```java
+public class RuntimeException1 {
+    public static void main(String[] args) {
+        int[] array = new int[3];
 
+        // Trying access the 6th element of an array that only stores 3 elements.
+        System.out.println(array[5]);   
+    }
+}
+```
+Results in:
+```java
+>>  Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3
+>>          at RuntimeException1.main(RuntimeException1.java:5)
+```
+
+##### Unchecked Exceptions - Example 2: NullPointerException
+Happens when we try to access (dot syntax) from a null.
+
+```java
+public class RuntimeException2 {
+    public static void main(String[] args) {
+        String word = null;
+        
+        word.toLowerCase();
+    }
+}
+
+```
+Results in:
+```java
+>>  Exception in thread "main" java.lang.NullPointerException  
+>>          at RuntimeException2.main(RuntimeException2.java:5)
+```
+
+One way to manage this exception - other than assigning a non-null value to the word String - could be:
+
+```java
+public class RuntimeException2 {
+    public static void main(String[] args) {
+        String word = null;
+        
+        if(word==null){
+            System.out.println("The word is null.");
+        }else{
+            word.toLowerCase();
+        }
+    }
+}
+```
+
+Then the result becomes:
+```java
+>>  The word is null.
+```
+
+Observe that in this case we are using the "==" operator on the word variable to check if it is equal to null.
+Should we instead try to use word.equals(null), which is the method we usually use to check String equality, then this method too would cause a NullPointerException! 
+
+##### Unchecked Exceptions - Example 3: InputMismatchException
+
+InputMismatchException can for example happen when the user enters a value that Scanner isnt expecting.
+
+Given the code:
+```java
+import java.util.Scanner;
+public class RuntimeException3 {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Please enter a number: ");
+        System.out.println(scan.nextInt());
+        scan.close();
+    }
+}
+```
+The code asks the user to enter a number. If the user instead enters a string, then it results in:
+```java
+>>  Please enter a number: fra
+>>  Exception in thread "main" java.util.InputMismatchException
+>>          at java.base/java.util.Scanner.throwFor(Scanner.java:939)
+>>          at java.base/java.util.Scanner.next(Scanner.java:1594)
+>>          at java.base/java.util.Scanner.nextInt(Scanner.java:2258)
+>>          at java.base/java.util.Scanner.nextInt(Scanner.java:2212)
+>>          at RuntimeException3.main(RuntimeException3.java:6)
+```
+The code can be improved to be resilient against this sort of exception like this:
+```java
+import java.util.Scanner;
+public class RuntimeException3 {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Please enter a number: ");
+        if(scan.hasNextInt()){
+            System.out.println(scan.nextInt());
+        }else{
+            scan.nextLine();
+        }
+        System.out.println(scan.nextInt());
+        scan.close();
+    }
+}
+```
+In a practical sense, we should tell the user that the input is wrong in the else-branch and keep prompting for a valid input. But the example illustrates the point, which is that we should check if the user actually inputs valid data and take corrective action if they dont, rather than allowing the app to crash when there is an input mismatch!
+
+This also means that most of my code for Module 1 needs to be fixed, as I havent implemented these checks earlier. :) 
+
+```java
+```
+```java
+```
+```java
+```
