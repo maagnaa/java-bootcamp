@@ -552,6 +552,27 @@ Exceptions may be classified as:
 
 #### Checked Exceptions
 
+##### Example: FileNotFound Exception (++ also how to read files with Java)
+```java
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class ReadingFiles {
+    public static void main(String[] args) {
+        try{
+            FileInputStream fis = new FileInputStream("Greetings.txt");
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }        
+    }
+}
+```
+```java
+// Constructor for FileInputStream
+ public FileInputStream(String name) throws FileNotFoundException {
+        this(name != null ? new File(name) : null);
+    }
+```
 
 #### Unchecked Exceptions
 
