@@ -585,7 +585,7 @@ This section is split in two:
 
 Section 2.2.1 was mostly just exercises in using breakpoints and fixing code with issues. :) Not a lot to say about that. 
 
-### Exception Handling
+## Exception Handling
 
 In Java, an exception is an event that occurs during the execution of a program that disrupts the normal flow of instructions. This is generally an unexpected or unwanted event which can occur either at compile-time or at run-time in application code.
 
@@ -614,13 +614,13 @@ Exceptions may be classified as:
 - **Checked Exceptions**: Problems that occur at compile time. Must be explicitly checked and handled in code.
 - **Unchecked Exceptions**: Problems which occur during run-time. Results from badly written code and should not be catched, rather, the code must be fixed.
 
-#### Checked Exceptions
+### Checked Exceptions
 
 In general, checked exceptions represent errors outside the control of the program. For example, the constructor of FileInputStream throws FileNotFoundException if the input file does not exist.
 
 Java verifies checked exceptions at compile-time.
 
-##### Checked Exceptions - Example 1: FileNotFound Exception (++ also how to read files with Java)
+##### Example 1: FileNotFound Exception (++ also how to read files with Java)
 ```java
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -669,7 +669,7 @@ public class ReadingFilesTwo {
 
 }
 ```
-##### Checked Exceptions - Example 2: MalformedURLException (++ how to parse urls!)
+##### Example 2: MalformedURLException 
 ```java
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -709,7 +709,7 @@ public class ParseURLTwo {
 ```
 
 
-#### Unchecked Exceptions
+### Unchecked Exceptions
 If a program throws an unchecked exception, which is an exception that happens during runtime, it reflects either some error inside the program logic or that something is missing from the code. If something is missing, it might for example be that appropiate checks need to be put in place to make sure corrective action is taken when something (for example a variable or input) is not what we expected.
 
 For example, if we divide a number by 0, Java will throw ArithmeticException:
@@ -733,7 +733,7 @@ Other common unchecked runtime exceptions:
 - IllegalArgumentException
 - InputMismatchException
 
-##### Unchecked Exceptions - Example 1: ArrayIndexOutOfBoundsException
+##### Example 1: ArrayIndexOutOfBoundsException
 ```java
 public class RuntimeException1 {
     public static void main(String[] args) {
@@ -750,7 +750,7 @@ Results in:
 >>          at RuntimeException1.main(RuntimeException1.java:5)
 ```
 
-##### Unchecked Exceptions - Example 2: NullPointerException
+##### Example 2: NullPointerException
 Happens when we try to access (dot syntax) from a null.
 
 ```java
@@ -793,7 +793,7 @@ Then the result becomes:
 Observe that in this case we are using the "==" operator on the word variable to check if it is equal to null.
 Should we instead try to use word.equals(null), which is the method we usually use to check String equality, then this method too would cause a NullPointerException! 
 
-##### Unchecked Exceptions - Example 3: InputMismatchException
+##### Example 3: InputMismatchException
 
 InputMismatchException can for example happen when the user enters a value that Scanner isnt expecting.
 
@@ -842,6 +842,14 @@ public class RuntimeException3 {
 
 ```
 We should check if the user actually inputs valid data and take corrective action if they dont, rather than allowing the app to crash when there is an input mismatch! This also means that most of my code for Module 1 needs to be fixed, as I havent implemented these checks earlier. :) 
+
+#### Throwing Unchecked Exceptions
+
+Its important to throw unchecked exceptions to mantain quality control. This forces the caller to improve their code.
+
+- Throw an **IllegalArgumentException** if the caller passes illegal values into a method/constructor.
+- Throw an **IllegalStateException** if the caller invokes a method at a time when the object is not in a valid state.
+
 
 ```java
 ```
