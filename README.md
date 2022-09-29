@@ -877,7 +877,7 @@ public Employee(String name, String position) {
     }
     this.name = name;
     this.position = position;
-    }
+}
 ```
 Now if the constructor is used in the same way as in the second snippet of this example, the app will crash and result in:
 ```java
@@ -885,7 +885,7 @@ Now if the constructor is used in the same way as in the second snippet of this 
 >>          at models.Employee.<init>(Employee.java:9)
 >>          at Main.main(Main.java:6)
 ```
-
+This exception gives a meaningful message which can help the developer identify what is wrong with their code and improve it.
 
 
 ```java
