@@ -853,7 +853,7 @@ Some common situations:
 - Throw an **IllegalArgumentException** if the caller passes illegal values into a method/constructor.
 - Throw an **IllegalStateException** if the caller invokes a method at a time when the object is not in a valid state.
 
-##### Example: Throwing an IllegalArgumentException
+##### Example 1: Throwing an IllegalArgumentException
 Given the following constructor method:
 ```java
 public Employee(String name, String position) {
@@ -887,9 +887,79 @@ Now if the constructor is used in the same way as in the second snippet of this 
 ```
 This exception gives a meaningful message which can help the developer identify what is wrong with their code and improve it.
 
+##### Example 2: Throwing an IllegalStateException
+We need to throw an IllegalStateException if an object isnt properly initialized before calling a method.
 
+Given this class describing a store:
 ```java
+public class Store {
+    Employee[] employees;
+
+    public Store() {
+        employees = new Employee[3];
+    }
+
+    public void setEmployees(int index, Employee employee) {
+        this.employees[index] = new Employee(employee);
+    }
+
+    public void open() {
+        System.out.println("We're open for business!");
+    }
+
+    public String toString() {
+        String temp = "";
+        for (int i = 0; i < employees.length; i++) {
+            temp += employees[i] != null ? employees[i].toString() : "";
+            temp += "\n";
+        }
+        return temp;
+    }
+
+}
 ```
 
+In our app, we declare a Store object and call the .open() method.
 ```java
+Store store = new Store();
+System.out.println(store);
+store.open();
 ```
+
+We have now opened the store object without initializing the employees array with any meaningful content.
+
+Assuming that the store object **should not be opened** unless it is staffed by 3 employees, we should change the .open() method so that it checks that none of the Employee objects in the employees array is null. If any is null, we throw an IllegalStateException to indicate that the store object has not been properly initialized.
+
+```java
+public void open() {
+    for(int i=0; i<employees.length;i++){
+        if(employees[i] == null){
+            throw new IllegalStateException("The store cannot be opened unless it is staffed by three employees.");
+        }
+    }
+    System.out.println("We're open for business!");
+}
+```
+If we are going to properly open the store, we then need to do it like this from the app code:
+```java
+Employee stocker = new Employee("Magna", "Stocker");
+Employee assisManager = new Employee("Nimi", "Assistant Manager");
+Employee manager = new Employee("Pus", "Manager");
+
+Store store = new Store();
+store.setEmployees(0, stocker);
+store.setEmployees(1, assisManager);
+store.setEmployees(2, manager);
+
+System.out.println(store);
+store.open();        
+```
+
+
+```java
+
+```
+```java
+
+```
+
