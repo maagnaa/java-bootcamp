@@ -552,7 +552,7 @@ Exceptions may be classified as:
 
 #### Checked Exceptions
 
-##### Example: FileNotFound Exception (++ also how to read files with Java)
+##### Checked Exceptions - Example 1: FileNotFound Exception (++ also how to read files with Java)
 ```java
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -601,6 +601,45 @@ public class ReadingFilesTwo {
 
 }
 ```
+##### Checked Exceptions - Example 2: MalformedURLException (++ how to parse urls!)
+```java
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class ParseURL {
+    public static void main(String[] args) {
+        try{
+            URL url = new URL("https://www.google.com/images");
+            System.out.println("Protocol: \t"+url.getProtocol());
+            System.out.println("Host: \t\t"+url.getHost());
+            System.out.println("Path: \t\t"+url.getPath());
+        }catch(MalformedURLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+}
+```
+```java
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class ParseURLTwo {
+    public static void main(String[] args) {
+        try{
+            parseURL("https://www.google.com/images");
+        }catch(MalformedURLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void parseURL(String link) throws MalformedURLException {
+            URL url = new URL(link);
+            System.out.println("Protocol: \t"+url.getProtocol());
+            System.out.println("Host: \t\t"+url.getHost());
+            System.out.println("Path: \t\t"+url.getPath());
+    }    
+}
+```
+
 
 #### Unchecked Exceptions
 
