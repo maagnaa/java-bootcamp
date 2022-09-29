@@ -2,6 +2,8 @@
 
 This repository contains exercises and progress for [The Complete Java Development Bootcamp @ Udemy](https://www.udemy.com/course/the-complete-java-development-bootcamp/)
 
+Notes and summary of key learnings and takeaways is found below the content overview.
+
 ##  Content Overview
 ### Module 1 - Java Fundamentals
 1. **Getting Started** 
