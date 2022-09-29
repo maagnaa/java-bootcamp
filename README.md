@@ -825,16 +825,21 @@ import java.util.Scanner;
 public class RuntimeException3 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        System.out.print("Please enter a number: ");
-        if(scan.hasNextInt()){
-            System.out.println(scan.nextInt());
-        }else{
-            scan.nextLine();
+
+        while(true){
+            System.out.print("Please enter a number: ");
+            if(scan.hasNextInt()){
+                System.out.println(scan.nextInt());
+                break;
+            }else{
+                scan.nextLine();
+                System.out.println("That is not a number.");
+            }
         }
-        System.out.println(scan.nextInt());
         scan.close();
     }
 }
+
 ```
 In a practical sense, we should tell the user that the input is wrong in the else-branch and keep prompting for a valid input. But the example illustrates the point, which is that we should check if the user actually inputs valid data and take corrective action if they dont, rather than allowing the app to crash when there is an input mismatch!
 
