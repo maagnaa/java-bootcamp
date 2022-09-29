@@ -100,6 +100,49 @@ Also, to check compiler and/or runtime version: *javac* -version / *java*  -vers
 | **char**    | single character   | 
 | **boolean** | true / false       |
 
+Also: not covered in this part of the BootCamp is **BigDecimal**. The BigDecimal class provides operations on double numbers for arithmetic, scale handling, rounding, comparison, format conversion and hashing. It can handle very large and very small floating point numbers with great precision but compensating with the time complexity a bit.
+
+```java
+// Java Program to illustrate BigDecimal Class
+  
+import java.math.BigDecimal;
+public class BigDecimalExample
+{
+    public static void main(String[] args) 
+    {
+        // Create two new BigDecimals
+        BigDecimal bd1 = 
+               new BigDecimal("124567890.0987654321");
+        BigDecimal bd2 = 
+               new BigDecimal("987654321.123456789");
+          
+        // Addition of two BigDecimals
+        bd1 = bd1.add(bd2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // Multiplication of two BigDecimals
+        bd1 = bd1.multiply(bd2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // Subtraction of two BigDecimals
+        bd1 = bd1.subtract(bd2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // Division of two BigDecimals
+        bd1 = bd1.divide(bd2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // BigDecima1 raised to the power of 2
+        bd1 = bd1.pow(2);
+        System.out.println("BigDecimal1 = " + bd1);
+  
+        // Negate value of BigDecimal1
+        bd1 = bd1.negate();
+        System.out.println("BigDecimal1 = " + bd1);
+    }    
+}        
+```
+
 ### Math Operators
 
 | Operator    | Description     |
