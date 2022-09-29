@@ -841,9 +841,7 @@ public class RuntimeException3 {
 }
 
 ```
-In a practical sense, we should tell the user that the input is wrong in the else-branch and keep prompting for a valid input. But the example illustrates the point, which is that we should check if the user actually inputs valid data and take corrective action if they dont, rather than allowing the app to crash when there is an input mismatch!
-
-This also means that most of my code for Module 1 needs to be fixed, as I havent implemented these checks earlier. :) 
+We should check if the user actually inputs valid data and take corrective action if they dont, rather than allowing the app to crash when there is an input mismatch! This also means that most of my code for Module 1 needs to be fixed, as I havent implemented these checks earlier. :) 
 
 ```java
 ```
