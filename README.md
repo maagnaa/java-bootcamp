@@ -853,10 +853,43 @@ Some common situations:
 - Throw an **IllegalArgumentException** if the caller passes illegal values into a method/constructor.
 - Throw an **IllegalStateException** if the caller invokes a method at a time when the object is not in a valid state.
 
+##### Example: Throwing an IllegalArgumentException
+Given the following constructor method:
+```java
+public Employee(String name, String position) {
+this.name = name;
+this.position = position;
+    }
+```
+A caller might use the constructor like this:
+```java
+Employee stocker = new Employee("   ", null);
+Employee assisManager = new Employee("Nicholas", "     ");
+Employee manager = new Employee(null, "      ");
+```
+Resulting in rubbish employee objects that do not reflect any meaningful data. The constructor must include checks to quality control the arguments as much as possible.
+
+To improve the constructor method, we check if any or the arguments is null or blank. If either argument is null or blank, we throw an IllegalArgumentException using the **new** keyword.
+```java
+public Employee(String name, String position) {
+    if(name == null || name.isBlank() || position == null || position.isBlank()){
+        throw new IllegalArgumentException("Name or position cannot be null or blank.");
+    }
+    this.name = name;
+    this.position = position;
+    }
+```
+Now if the constructor is used in the same way as in the second snippet of this example, the app will crash and result in:
+```java
+>>  Exception in thread "main" java.lang.IllegalArgumentException: Name or position cannot be null or blank.
+>>          at models.Employee.<init>(Employee.java:9)
+>>          at Main.main(Main.java:6)
+```
+
+
 
 ```java
 ```
-```java
-```
+
 ```java
 ```
