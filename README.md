@@ -50,7 +50,8 @@ Notes and summary of key learnings and takeaways is found below the content over
     - [ ] Summary Assignment
 5. **Capstone Project** 
     - [ ] Module Summary Assignment
-    
+
+The workbook instructions for the course are found [here](https://www.learnthepart.com/course/2dfda34d-6bbc-4bd5-8f45-d5999de2f514/a0d30d63-16f5-4702-992a-77b560cbeddd).
     
 # 1. Java Fundamentals
 
@@ -846,6 +847,8 @@ We should check if the user actually inputs valid data and take corrective actio
 #### Throwing Unchecked Exceptions
 
 Its important to throw unchecked exceptions to mantain quality control. This forces the caller to improve their code.
+
+Some common situations:
 
 - Throw an **IllegalArgumentException** if the caller passes illegal values into a method/constructor.
 - Throw an **IllegalStateException** if the caller invokes a method at a time when the object is not in a valid state.
