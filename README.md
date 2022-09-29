@@ -100,6 +100,8 @@ Also, to check compiler and/or runtime version: *javac* -version / *java*  -vers
 | **char**    | single character   | 
 | **boolean** | true / false       |
 
+### BigDecimal
+
 Also: not covered in this part of the BootCamp is **BigDecimal**. The BigDecimal class provides operations on double numbers for arithmetic, scale handling, rounding, comparison, format conversion and hashing. It can handle very large and very small floating point numbers with great precision but compensating with the time complexity a bit.
 
 ```java
@@ -142,6 +144,23 @@ public class BigDecimalExample
     }    
 }        
 ```
+
+### A note on indexing characters in Java strings
+In Java, we dont index characters in strings like in languages where string is considered an array of char. 
+
+```java
+String stringVariable = "Hello from my String!";
+char char3 = stringVariable[3];
+```
+The above example is a very big nope!
+
+Instead, we use the **.charAt()** method to index the String variable.
+```java
+String stringVariable = "Hello from my String!";
+char char3 = stringVariable.charAt(3);
+```
+
+
 
 ### Math Operators
 
