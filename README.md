@@ -857,9 +857,9 @@ Some common situations:
 Given the following constructor method:
 ```java
 public Employee(String name, String position) {
-this.name = name;
-this.position = position;
-    }
+    this.name = name;
+    this.position = position;
+}
 ```
 A caller might use the constructor like this:
 ```java
