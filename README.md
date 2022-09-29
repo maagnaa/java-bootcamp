@@ -610,9 +610,13 @@ Exceptions on the other hand indicate **conditions that a reasonable application
 
 Exceptions may be classified as:
 - **Checked Exceptions**: Problems that occur at compile time. Must be explicitly checked and handled in code.
-- **Unchecked Exceptions**: Problems which occur during run-time. Methods dont have to explicitly catch or throw these exeptions.
+- **Unchecked Exceptions**: Problems which occur during run-time. Results from badly written code and should not be catched, rather, the code must be fixed.
 
 #### Checked Exceptions
+
+In general, checked exceptions represent errors outside the control of the program. For example, the constructor of FileInputStream throws FileNotFoundException if the input file does not exist.
+
+Java verifies checked exceptions at compile-time.
 
 ##### Checked Exceptions - Example 1: FileNotFound Exception (++ also how to read files with Java)
 ```java
@@ -704,6 +708,16 @@ public class ParseURLTwo {
 
 
 #### Unchecked Exceptions
+If a program throws an unchecked exception, it reflects some error inside the program logic.
 
+For example, if we divide a number by 0, Java will throw ArithmeticException:
 
+```java
+private static void divideByZero() {
+    int numerator = 1;
+    int denominator = 0;
+    int result = numerator / denominator;
+}
+```
 
+Java does not verify unchecked exceptions at compile-time. Furthermore, we don't have to declare unchecked exceptions in a method with the throws keyword. And although the above code does not have any errors during compile-time, it will throw ArithmeticException at runtime.
