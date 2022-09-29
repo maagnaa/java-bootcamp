@@ -708,7 +708,7 @@ public class ParseURLTwo {
 
 
 #### Unchecked Exceptions
-If a program throws an unchecked exception, it reflects some error inside the program logic.
+If a program throws an unchecked exception, which is an exception that happens during runtime, it reflects some error inside the program logic.
 
 For example, if we divide a number by 0, Java will throw ArithmeticException:
 
@@ -721,3 +721,13 @@ private static void divideByZero() {
 ```
 
 Java does not verify unchecked exceptions at compile-time. Furthermore, we don't have to declare unchecked exceptions in a method with the throws keyword. And although the above code does not have any errors during compile-time, it will throw ArithmeticException at runtime.
+
+In fact, *never catch an unchecked exception*, instead **fix the code**.
+
+Other common unchecked runtime exceptions:
+
+- NullPointerException
+- IllegalArgumentException
+- InputMismatchException
+
+
