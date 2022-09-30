@@ -20,6 +20,8 @@ public class Main {
             System.out.print("\n\n");
             System.out.println(contactManager.toString());
 
+            manageContacts();
+
         }catch(FileNotFoundException e){
             System.out.println(e.getMessage());
         }
@@ -36,6 +38,53 @@ public class Main {
      *   •        case c: break the loop.
      *   • 3. close Scanner.
      */
+
+    public static void manageContacts(){
+        Scanner scan = new Scanner(System.in);
+        while(true){
+            System.out.println("Would you like to \n\ta) add another contact\n\tb) remove a contact \n\tc) exit");
+            String response = scan.nextLine();
+            if(response.equals("a")){
+                // User wishes to add a contact
+               
+                //Name
+                System.out.println("Enter the name of your contact:");
+                String name = scan.nextLine();
+                //Phone Number
+                System.out.println("Enter the phone number of your contact:");
+                String phoneNumber = scan.nextLine();
+                //Birthdate
+                System.out.println("Enter the birthdate (MM/DD/YYYY) of your contact:");
+                String birthDate = scan.nextLine();
+                if (name.isBlank() || phoneNumber.isBlank() || phoneNumber.length() < 5) {
+                    System.out.println("\nThe input you provided is not valid. Registration failed.");
+                } else {
+                    try {
+                        contactManager.addContact(new Contact(name, phoneNumber, birthDate));
+                    } catch (ParseException e) {
+                        System.out.println(e.getMessage());
+                    } finally { //contacts will re-print regardless of the outcome...
+                        System.out.println("\n\nUPDATED CONTACTS\n\n" + contactManager);
+                    }
+                }
+            }else if(response.equals("b")){
+                //User wishes to remove a contact
+                System.out.println("\nWho would you like to remove?");
+                contactManager.removeContact(scan.nextLine());
+                System.out.println("\n\nUPDATED CONTACTS\n\n" + contactManager);
+            }else if(response.equals("c")){
+                // User wishes to exit
+                break;
+            }else{
+                System.out.println("You did not input a valid option.\n");
+            }
+
+
+
+        }
+        scan.close();
+    }
+
 
 
     /**
