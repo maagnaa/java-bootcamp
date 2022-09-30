@@ -1,12 +1,22 @@
 import java.text.ParseException;
 
 import models.Contact;
+import models.ContactManager;
 
 public class Main {
     public static void main(String[] args) {
         try{
             Contact magna = new Contact("Magna Nordgard", "22225646", "09/23/1992");
-            System.out.println(magna.toString());
+            Contact martin = new Contact("Martin Eskerud", "22330506", "12/30/1991");
+
+            ContactManager contactManager = new ContactManager();
+            
+            contactManager.addContact(magna);
+            contactManager.addContact(martin);
+
+            System.out.print("\n\n");
+            System.out.println(contactManager.toString());
+
         }catch(ParseException e){
             System.out.println(e.getMessage());
         }
