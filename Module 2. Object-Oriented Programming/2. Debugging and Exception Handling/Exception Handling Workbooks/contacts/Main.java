@@ -1,23 +1,26 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.util.Scanner;
 
 import models.Contact;
 import models.ContactManager;
 
 public class Main {
+    // Make contactManager into a class variable
+    static ContactManager contactManager = new ContactManager();
+
     public static void main(String[] args) {
         try{
-            Contact magna = new Contact("Magna Nordgard", "22225646", "09/23/1992");
-            Contact martin = new Contact("Martin Eskerud", "22330506", "12/30/1991");
-
-            ContactManager contactManager = new ContactManager();
-            
-            contactManager.addContact(magna);
-            contactManager.addContact(martin);
+           
+            loadContacts("contacts.txt");
+            System.out.println("CONTACTS LOADED\n\n");
 
             System.out.print("\n\n");
             System.out.println(contactManager.toString());
 
-        }catch(ParseException e){
+        }catch(FileNotFoundException e){
             System.out.println(e.getMessage());
         }
     }
@@ -46,4 +49,18 @@ public class Main {
      *        Hint: use scan.next to grab the next String separated by white space.
      */
 
+     public static void loadContacts(String filename) throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(filename);
+        Scanner scanFile = new Scanner(fis);
+
+        while(scanFile.hasNextLine()){
+            try{
+                Contact contact = new Contact(scanFile.next(), scanFile.next(), scanFile.next());
+                contactManager.addContact(contact);
+            }catch(ParseException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+     }
 }
