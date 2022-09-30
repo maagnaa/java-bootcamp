@@ -51,7 +51,6 @@ Notes and summary of key learnings and takeaways is found below the content over
 5. **Capstone Project** 
     - [ ] Module Summary Assignment
 
-The workbook instructions for the course are found [here](https://www.learnthepart.com/course/2dfda34d-6bbc-4bd5-8f45-d5999de2f514/a0d30d63-16f5-4702-992a-77b560cbeddd).
     
 # 1. Java Fundamentals
 
