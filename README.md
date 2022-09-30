@@ -957,10 +957,43 @@ store.open();
 
 ### Mutable and Inmutable Objects
 
-**Inmutable Objects** are objects that, once created, always represent the same value. 
-**Mutable Objects** are objects that have methods to change the value of the object.
+- **Inmutable Objects** are objects that, once created, always represent the same value. 
+- **Mutable Objects** are objects that have methods to change the value of the object.
 
-A nice reference I found on this: ![Mutability & Immutability](https://web.mit.edu/6.005/www/fa16/classes/09-immutability/)
+A nice reference I found on this topic: ![Mutability & Immutability](https://web.mit.edu/6.005/www/fa16/classes/09-immutability/)
+
+#### Mutable Objects
+
+- Another name for a setter method is mutator method.
+- It follows that objects with setter methods are mutable objects: their value can be changed after creation. 
+
+
+```java
+Car car = new Car("Nissan", 10000);
+car.setMake("Honda");
+```
+
+#### Inmutable Objects
+- Objects whose state is impossible to update after creation. 
+- Eg. object will all-private fields and no setters/mutators.
+
+#### Wrapper Class
+
+>A Wrapper class is a class whose object wraps or contains primitive data types. When we create an object to a wrapper class, it contains a field and in this field, we can store primitive data types. In other words, we can wrap a primitive value into a wrapper class object.
+
+
+```java
+int         mutableWholeNumber      = 5;                    // Primitive. No methods, cannot be null.
+Integer     inmutableWholeNumber    = Integer.valueOf(5);   // Wrapper around int. Stores a ref. to the integer value. 
+```
+![wrappermethods](https://github.com/maagnaa/java-bootcamp/blob/master/assets/wrapper_methods.PNG)
+
+
+**Autoboxing:** Automatic conversion of primitive types to the object of their corresponding wrapper classes is known as autoboxing. \
+For example: conversion of int to Integer, long to Long, double to Double etc.
+
+**Unboxing:** The reverse of autoboxing. For example: conversion of Integer to int, Long to long, Double to double, etc. 
+
 
 
 ```java
