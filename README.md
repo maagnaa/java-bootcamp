@@ -955,6 +955,13 @@ System.out.println(store);
 store.open();        
 ```
 
+### Mutable and Inmutable Objects
+
+**Inmutable Objects** are objects that, once created, always represent the same value. 
+**Mutable Objects** are objects that have methods to change the value of the object.
+
+A nice reference I found on this: ![Mutability & Immutability](https://web.mit.edu/6.005/www/fa16/classes/09-immutability/)
+
 
 ```java
 
