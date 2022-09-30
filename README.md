@@ -994,8 +994,11 @@ For example: conversion of int to Integer, long to Long, double to Double etc.
 
 **Unboxing:** The reverse of autoboxing. For example: conversion of Integer to int, Long to long, Double to double, etc. 
 
-
-
+##### When to use primitive vs. wrapper
+- Primitives take up less space and are faster.
+- Use Wrapper only when absolutely necessary. Eg. when:
+    - The variable needs to be nullable.
+    - The variable must be able to call a method.
 ```java
 
 ```
