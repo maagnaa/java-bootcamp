@@ -977,7 +977,7 @@ car.setMake("Honda");
 - Objects whose state is impossible to update after creation. 
 - Eg. object will all-private fields and no setters/mutators.
 
-#### Wrapper Class
+### Wrapper Classes
 
 >A Wrapper class is a class whose object wraps or contains primitive data types. When we create an object to a wrapper class, it contains a field and in this field, we can store primitive data types. In other words, we can wrap a primitive value into a wrapper class object.
 
@@ -999,9 +999,49 @@ For example: conversion of int to Integer, long to Long, double to Double etc.
 - Use Wrapper only when absolutely necessary. Eg. when:
     - The variable needs to be nullable.
     - The variable must be able to call a method.
-```java
 
+### ArrayList
+Since usually arrays need to be constrained and cannot be updated without creating a new array with a new size constraint...
+
+ArrayList:
+- Is resizable. Can add or remove elements.
+- Can only store **objects**. It cannot store primitives.
+
+```java
+import java.util.ArrayList;
 ```
+```java
+ArrayList <class type> collection = new ArrayList<class type>();    // *< >* denotes a generic 
+                                                                    // It can only accept class types (never primitives).
+```
+
+#### Example usage
+
+```java
+import java.util.ArrayList;
+
+public class ResizableArrays {
+    public static void main(String[] args) {
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("Magna");
+        names.add("Pus");
+        names.add("Nimi");
+        names.add("Katrine");
+        names.add("Frank");                             
+
+        for(int i=0; i < names.size(); i++){
+            System.out.println(names.get(i));
+        }
+
+        names.set(0, "Magna the Mindblown"); 
+        names.remove(1);                        // Remove item at index 1. Pus has left the game.
+        names.clear();                          // Clear the whole ArrayList. 
+    }
+}
+```
+
+
+
 ```java
 
 ```
