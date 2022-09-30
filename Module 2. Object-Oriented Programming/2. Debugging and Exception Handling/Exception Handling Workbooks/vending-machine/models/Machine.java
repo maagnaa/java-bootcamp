@@ -20,7 +20,19 @@ public class Machine {
     }
 
     public void dispense(int row, int spot) {
+        if(items[row][spot].getQuantity()== 0){
+            throw new IllegalArgumentException("Cannot dispense an item with a quantity of zero");
+        }
         items[row][spot].setQuantity(items[row][spot].getQuantity() - 1);
+    }
+
+    public boolean itemIsEmpty(int row, int spot){
+        boolean isEmpty = true;
+        if(items[row][spot].getQuantity()!=0){
+            isEmpty = false;
+        }
+        return isEmpty;
+
     }
 
     public String toString() {
