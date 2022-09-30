@@ -1,8 +1,15 @@
+import java.text.ParseException;
+
+import models.Contact;
+
 public class Main {
     public static void main(String[] args) {
-        
-      
-        
+        try{
+            Contact magna = new Contact("Magna Nordgard", "22225646", "09/23/1992");
+            System.out.println(magna.toString());
+        }catch(ParseException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -16,7 +23,6 @@ public class Main {
      *   •        case c: break the loop.
      *   • 3. close Scanner.
      */
-
 
 
     /**
