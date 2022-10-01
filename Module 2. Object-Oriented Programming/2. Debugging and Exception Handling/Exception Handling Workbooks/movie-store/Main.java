@@ -1,14 +1,30 @@
 import models.Movie;
+import models.Store;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("\n********************JAVA VIDEO STORE********************\n");
         
         Movie lotr1 = new Movie("The Lord of The Rings: The Fellowship of the Ring","DVD",5);
+        Movie lotr2 = new Movie("The Lord of The Rings: The Two Towers","DVD",5);
+        Movie lotr3 = new Movie("The Lord of The Rings: The Return of the King","DVD",5);
+
+
+        Store movieStore = new Store();
+        movieStore.addMovie(lotr1);
+        movieStore.addMovie(lotr2);
+        movieStore.addMovie(lotr3);
 
         System.out.print("\n\n");
-        System.out.print(lotr1.toString());
         System.out.print("\n\n");
+
+        System.out.print(movieStore);
+
+        movieStore.action(lotr1.getName(), "rent");
+        System.out.print(movieStore);
+
+        movieStore.action(lotr1.getName(), "return");
+        System.out.print(movieStore);
 
 
     }
