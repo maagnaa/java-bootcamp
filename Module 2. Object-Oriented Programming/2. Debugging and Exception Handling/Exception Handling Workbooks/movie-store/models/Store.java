@@ -16,6 +16,16 @@ public class Store {
         return new Movie(this.movies.get(index)); 
     }
 
+    public Movie getMovie(String name){
+        for(int i=0;i<this.movies.size();i++){
+            if(this.movies.get(i).getName().equals(name)){
+                return new Movie(this.movies.get(i));
+            }
+        }
+        
+        return null;
+
+    }
     /* Setters */
     public void setMovie(int index, Movie movie){
         // Should setMovie only set indexes that are within the current size of the ArrayList?
@@ -98,6 +108,18 @@ public class Store {
                 }
             }
         }
+    }
+
+    public boolean checkMovieName(String movieName){
+        boolean movieExists = false;
+        for(int i=0;i<this.movies.size();i++){
+            if(this.movies.get(i).getName().equals(movieName)){
+                movieExists = true;
+                break;
+            }
+        }
+
+        return movieExists;
     }
 
     /* toString */
