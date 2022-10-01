@@ -39,6 +39,17 @@ public class Cart {
  
  
   
+    public boolean checkItemExists(String itemName){
+        boolean itemExists = false;
+        for(int i=0;i<this.items.size();i++){
+            if(this.items.get(i).getName().equals(itemName)){
+                itemExists = true;
+                break;
+            }
+        }
+        return itemExists;
+    }
+
    /**
     * Name: remove
     * @param name
@@ -95,8 +106,8 @@ public class Cart {
 
         return ("\tRECEIPT\n\n" +
                 "\tSubtotal:  \t$" + subtotal   +   "\n" +
-                "\tTax:     \t\t$" + tax        +   "\n" +
-                "\tTotal:   \t\t$" + total +        "\n" );
+                "\tTax:       \t$" + tax        +   "\n" +
+                "\tTotal:     \t$" + total +        "\n" );
     }
 
     /* isEmpty */

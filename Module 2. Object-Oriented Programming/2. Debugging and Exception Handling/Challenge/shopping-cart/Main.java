@@ -2,29 +2,29 @@ import models.Cart;
 import models.Item;
 import models.Store;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Main {
-    
+    static Store store = new Store();
+    static Cart cart = new Cart();   
+
+    static Scanner scan = new Scanner(System.in);
+
 
     public static void main(String[] args) {
-        Item[][] inventory = new Item[][] { 
-            { new Item("Pepsi", 1.99), new Item("Crush", 1.99), new Item("Cola", 1.99) },
-            { new Item("Honey Oats", 3.99), new Item("Fruit Loops", 1.99), new Item("Cheerios", 2.99) },
-            { new Item("Milk", 4.99), new Item("Eggs", 0.99), new Item("Cheese", 1.89) },
-            { new Item("Pepperoni", 2.99), new Item("Salami", 4.49), new Item("Mortadella", 4.99) },
-            { new Item("Celery", 0.99), new Item("Spinach", 0.99), new Item("Coriander", 1.29) },
-            { new Item("Shirt", 12.99), new Item("Pants", 24.99), new Item("Sweater", 18.99) }, 
-            { new Item("Phone", 549.99), new Item("Printer", 349.99), new Item("Television", 1099) } 
-        };
-    
-        Store store = new Store();
-        for(int i=0;i<inventory.length;i++){            // Loop through rows
-            for(int j=0;j<inventory[i].length;j++){     // Loop through columns
-                store.setItem(i,j,new Item(inventory[i][j]));
-            }
+
+        try{
+            loadItems("products.txt");
+            System.out.println(store.toString());
+            manageItems();
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }finally{
+            System.out.println("Process Complete.");
         }
-        System.out.println("\n\t***************************** JAVA GROCERS *****************************\n");
-        System.out.println(store + "\n");
-        
+
     }
 
     /**
@@ -39,6 +39,105 @@ public class Main {
      *   •        Prints the updated shopping cart.
      */
  
+     public static void manageItems(){
+        boolean exit = false;
+        String itemName = "";
+        String action = "";
+        while(!exit){
+            action = askUserAction();
+            switch(action){
+                case "a":
+                    addItem();
+                    break;
+                case "b":
+                    removeItem();
+                    break;
+                case "c":
+                    checkout();
+                    break;
+                case "d":
+                    System.out.println("You have chosen to exit without checkout.");
+                    exit = true;
+                    break;
+            }
+
+        }
+     }
+
+     public static String askUserAction(){
+        String response = "";
+        while(true){
+            System.out.println("What would you like to do:          \n"+
+                                    "\t a) Add an item to cart.     \n"+
+                                    "\t b) Remove an item from cart.\n"+
+                                    "\t c) Checkout                 \n"+
+                                    "\t d) Exit.                    \n");
+
+            response = scan.nextLine();
+
+            if(response.equals("a")||response.equals("b")||response.equals("c")||response.equals("d")){
+                break;
+            }else{
+                System.out.println("That is not a valid response. Please answer 'a' 'b' 'c' or 'd");
+            }
+        }
+
+        System.out.println("You selected option "+ response +".");
+        return response;
+    }
+
+
+    public static void addItem(){
+        boolean exit = false;
+        int row = -1;
+        int column = -1;
+
+        while(!exit){
+            System.out.println("Enter the aisle number of the item you want to add to cart.");
+            row = scan.nextInt();
+            System.out.println("Enter the column number of the item you want to add to cart");
+            column = scan.nextInt();
+            scan.nextLine();
+            if (!(row < 0 || row > 6 || column < 0 || column > 2)) {
+                Item item = store.getItem(row, column);
+
+                if(!cart.add(item)){
+                    System.out.println(item.getName() + " is already in your shopping cart.");
+                }else{
+                    System.out.println(item.getName() + " was added to your shopping cart.");
+                }
+                System.out.println("Your cart: \n" + cart.toString());
+                exit = true;
+            }else{
+                System.out.println( "You have entered an illegal value for row or column.\n" +
+                                    "\tValid values for aisle number are: 0-6 \n"+
+                                    "\tValid values for column number are: 0-2\n");
+            }
+        }
+    }
+
+    public static void removeItem(){
+        String itemName = "";
+
+        while(true){
+            System.out.println("Enter the name of the item you want to remove from cart.");
+            itemName = scan.nextLine();
+            if(cart.checkItemExists(itemName)){
+                cart.remove(itemName);
+                break;
+            }else{
+                System.out.println("You dont have that item in your cart.");
+            }
+        }
+    }
+
+    public static void checkout(){
+        if(cart.isEmpty()){
+            System.out.println("Your cart is empty, you cannot perform checkout.");
+        }else{
+            System.out.println(cart.checkout());
+        }
+    }
 
     /**
      * Name: loadItems
@@ -54,5 +153,16 @@ public class Main {
      *      • Parse each price into a Double.
      *   2. adds all items to the store object's items field.
      */
-
+    public static void loadItems(String fileName) throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Scanner scanFile = new Scanner(fis);
+        for (int i = 0; scanFile.hasNextLine(); i++) {
+            String line = scanFile.nextLine();
+            String[] items = line.split(";");
+            for (int j = 0; j < items.length; j++) {
+                String[] fields = items[j].split("=");
+                store.setItem(i, j, new Item(fields[0],Double.parseDouble(fields[1])));
+            }
+        }
+    }
 }

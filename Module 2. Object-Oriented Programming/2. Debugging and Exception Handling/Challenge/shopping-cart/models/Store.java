@@ -19,6 +19,19 @@ public class Store {
         this.items[row][column] = new Item(item);
     }
 
+    public boolean checkItemExists(String itemName){
+        boolean itemExists = false;
+        for(int i=0;i<this.items.length;i++){       // Loop through Rows/Aisles
+            for(int j=0;j<items[i].length;j++){     // Loop through Columns
+                if(items[i][j].getName().equals(itemName)){
+                    itemExists = true;
+                    break;
+                }
+            }
+        }
+        return itemExists;
+    }
+
     /* toString */
     public String toString(){
         String temp = "\n*************************************** JAVA GROCERS ***************************************\n";
