@@ -46,6 +46,19 @@ public class Item {
         this.price = price;
     }
 
+    /* Equality Checker */
+    /* Overload the equals method to evaluate copies and not reference equality */
+    public boolean equals(Object obj){
+        if(obj == null){
+            return false;
+        }
+        if(!(obj instanceof Item)){
+            return false;
+        }
+        Item item = (Item)obj;
+        return (this.name.equals(item.name) && this.price==item.price);
+    }
+
     /* To String */
     public String toString(){
         return (this.name + ": $" + this.price + " ");
