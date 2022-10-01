@@ -79,6 +79,9 @@ public class Cart {
     *   4. Returns a String that resembles a receipt. See below.
     */
     public String checkout(){
+        if(this.items.isEmpty()){
+            throw new IllegalArgumentException("Cart: Cannot checkout an empty cart!");
+        }
         double subtotal = 0;
         double tax = 0;
         double total = 0;
