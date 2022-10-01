@@ -44,8 +44,8 @@ Notes and summary of key learnings and takeaways is found below the content over
     - [X] 10 Workbooks - Debugging
     - Completed 28/09/22
     - [X] 4 Workbooks - Exception Handling
+    - [x] Summary Assignment
     - Completed 01/10/22
-    - [ ] Summary Assignment
 3. **Unit Testing, Stream API and Lambda Expressons**
     - [ ] Summary Assignment
 4. **Inheritance and Polymorphism**
