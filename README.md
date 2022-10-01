@@ -42,7 +42,9 @@ Notes and summary of key learnings and takeaways is found below the content over
     - Completed 26/09/22
 2. **Debugging and Exception Handling** 
     - [X] 10 Workbooks - Debugging
-    - [ ] 4 Workbooks - Exception Handling
+    - Completed 28/09/22
+    - [X] 4 Workbooks - Exception Handling
+    - Completed 01/10/22
     - [ ] Summary Assignment
 3. **Unit Testing, Stream API and Lambda Expressons**
     - [ ] Summary Assignment
