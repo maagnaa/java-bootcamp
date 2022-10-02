@@ -1242,12 +1242,17 @@ public class Filter {
         prices.add(10.99);
         prices.add(15.99);
 
-        prices.stream()                                 // Treat prices as a stream
-            .filter((price)     -> price < 5)                       // Intermediate OP
-            .forEach((price)    ->  System.out.println(price));     // Terminal OP
+        prices.stream()                         // Treat prices as a stream
+            .filter((price) -> {                // Intermediate Operation
+                return price < 5;
+            })
+            .forEach((price) ->{                
+                System.out.println(price);      // Terminal Operation
+            });
     }
 }
 ``` 
+
 So whats going on here?
 - First we treat prices as a stream, using prices.stream()
 - Directly below we have the pipeline, consisting of:
@@ -1264,9 +1269,34 @@ So whats going on here?
             - In this case, we print all the filtered values.
 
 ##### Lambda expression syntax
+
+- The name of the '**->**' in the lambda expression is **arrow token**.
+- The body of a lambda expression can contain zero, one or more statements.
+- When there is a single statement in the body of the lambda expression, curly brackets are not mandatory and the return type is the same as that of the body expression.
+- When there are more than one statements, then these must be enclosed in curly brackets (a code block) and the return type is the same as the type of the value returned within the code block, or void if nothing is returned.
+
 ```java
+// Lambda expression with one parameter and a multi-line body
 ((parameter) -> {
-  code goes here
+  // Body of lambda expression
+  // Code goes here
+})
+```
+```java
+// Lambda expression with one parameter and a single line body
+((parameter1) -> /*Single line body*/)
+```
+```java
+// Lambda expression with multiple parameters
+((parameter1, parameter2) -> {          
+  // Body of lambda expression
 })
 ```
 
+
+Alternative syntax for the lambda expressions in the example from before is:
+```java
+        prices.stream()                                             
+            .filter((price)     -> price < 5)                       
+            .forEach((price)    ->  System.out.println(price));     
+```
