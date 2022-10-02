@@ -987,7 +987,7 @@ car.setMake("Honda");
 int         mutableWholeNumber      = 5;                    // Primitive. No methods, cannot be null.
 Integer     immutableWholeNumber    = Integer.valueOf(5);   // Wrapper around int. Stores a ref. to the integer value. 
 ```
-![wrappermethods](https://github.com/maagnaa/java-bootcamp/blob/master/assets/wrapper_methods.PNG)
+![wrappermethods](/assets/wrapper_methods.PNG)
 
 
 **Autoboxing:** Automatic conversion of primitive types to the object of their corresponding wrapper classes is known as autoboxing. \
@@ -1045,9 +1045,145 @@ public class ResizableArrays {
 
 In the context of unit testing, the smallest testable parts of an application are considered units.
 Unit testing is a testing methodology where every single unit has a test. 
+A prerequisite is to have appropiately modularized code. Code which isn't modular performs too many tasks at once and is harder to test.
 
+### Test Driven Development
 
+Writing tests before writing code. Aka. the dream! 
+
+Steps:
+1. Identify meaningful testcases.
+2. Write a unit test for each case.
+3. Write the code and test it.
+
+#### A super simple example 
+
+We have the following requirement for a app that performs a checkout:
+>During checkout, the app returns a receipt that includes a subtotal, tax, and total.
+The tax rate is 13%.
+
+From this, we identify the following testcases:
+1. Check that the subtotal equals the sum of each price.
+2. Check that the tax equals 13% of the subtotal.
+3. Check that total = subtotal + tax.
+
+To begin with, the Main class looks like this:
+```java
+package src.main; // We need to provide a package that the test class can import
+
+public class Main {
+    static double[] prices = new double[] {2.23, 1.32, 4.32, 11.33};
+
+    public static void main(String[] args) {   
+    }
+}
+```
+So far, no functionality has been implemented, but we can see the array of prices. 
+With the prices, we can find the values the testcases need to check for.
+
+We start with the first testcase we identified by calculating the expected value of the subtotal.
+Subtotal = 2.23 + 1.32 + 4.32 + 11.33 **= 19.2**
+
+We create the following test class:
+```java
+package src.test;
+
+import org.junit.Test;
+import src.main.Main;
+
+public class checkoutTest{
+    @Test
+    public void subtotalIsValid(){
+        assertEquals(19.2, Main.getSubtotal());  // 1st argument is expected value, 2nd argument is actual
+    }
+}
+```
+Now that we have written the testcase, we see that we need to create a function in Main called getSubtotal.
+First, we write the function code so that the test will fail deliberately:
 
 ```java
+ public static double getSubtotal(){
+        return 0;
+    }
+```
+We run the test to check that it fails as expected:
+![intro-unit-testing-1](/assets/intro-unit-testing-1.PNG)
 
+Then we can start developing the actual implementation of getSubtotal().
+During development we can run the test as many times as we need, until we know we have a solution that is correct.
+
+```java
+public static double getSubtotal(){
+        double temp = 0;
+        for(int i=0; i<prices.length; i++){
+            temp += prices[i];
+        }
+        return temp;
+    }
+```
+![intro-unit-testing-2](/assets/intro-unit-testing-2.PNG)
+
+We can now move on to the next testcases. We iterate the same steps for each testcase:
+1. Identify the requirement and write the testcase.
+2. From the testcase, find out what methods/logic we need to create for the application.
+3. Write first code that causes the testcase to pass.
+4. Write so code that implements the desired logic, and test until the testcase passes.
+
+When these steps have been implemented for testcases 2. and 3., the checkoutTest class looks like this:
+```java
+package src.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.Test;
+import src.main.Main;
+
+public class checkoutTest{
+    @Test
+    public void subtotalIsValid(){
+        assertEquals(19.2, Main.getSubtotal());
+    }
+
+    @Test
+    public void taxIsValid(){
+        assertEquals(2.50, Main.getTax(19.2));
+    }
+
+    @Test
+    public void totalIsValid(){
+        assertEquals(21.7, Main.getTotal(19.2,2.50));
+    }
+}
+```
+And the main class looks like this:
+```java
+package src.main;
+
+import java.text.DecimalFormat;
+
+public class Main {
+    
+    static double[] prices = new double[] {2.23, 1.32, 4.32, 11.33};
+    static DecimalFormat formatter = new DecimalFormat("#.##");
+
+    public static void main(String[] args) {   
+
+    }
+
+    public static double getSubtotal(){
+        double temp = 0;
+        for(int i=0; i<prices.length; i++){
+            temp += prices[i];
+        }
+        return temp;
+    }
+
+    public static double getTax(double subtotal){
+        return Double.parseDouble(formatter.format(subtotal*0.13));
+    }
+
+    public static double getTotal(double subtotal, double tax){
+        return Double.parseDouble(formatter.format(subtotal+tax));
+    }
+}
 ```
