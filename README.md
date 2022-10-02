@@ -1127,7 +1127,7 @@ public static double getSubtotal(){
 We can now move on to the next testcases. We iterate the same steps for each testcase:
 1. Identify the requirement and write the testcase.
 2. From the testcase, find out what methods/logic we need to create for the application.
-3. Write first code that causes the testcase to pass.
+3. Write first code that causes the testcase to fail.
 4. Write so code that implements the desired logic, and test until the testcase passes.
 
 When these steps have been implemented for testcases 2. and 3., the checkoutTest class looks like this:
@@ -1197,7 +1197,7 @@ We can see that all tests are passing and we are happy with the solution!
 
 Streams are wrappers around a data source, allowing us to operate with that data source and making bulk processing convenient and fast. 
 
-A use case for streams is, for example, to do operations on an ArrayList without having to loop through said ArrayList. 
+A use case for streams is, for example, to do operations on an ArrayList without having to loop through said ArrayList explicitly. 
 
 
 #### Use case example
@@ -1266,7 +1266,7 @@ So whats going on here?
             - The lambda expression of forEach recieves each value from the updated sequence of elements coming from the previous operation in the pipeline.
             - In this case, we print all the filtered values.
 
-#####Lambda expression syntax
+##### Lambda expression syntax
 ```java
 ((parameter) -> {
   code goes here
