@@ -1044,7 +1044,7 @@ public class ResizableArrays {
 ## 2.3 Unit Testing, Stream API and Lambda Expressions
 
 In the context of unit testing, the smallest testable parts of an application are considered units.
-Unit testing is a testing methodology where every single unit has a test. 
+*Unit testing is a testing methodology where every single unit has a test.*
 A prerequisite is to have appropiately modularized code. Code which isn't modular performs too many tasks at once and is harder to test.
 
 ### Test Driven Development
@@ -1189,4 +1189,87 @@ public class Main {
 }
 ```
 We can see that all tests are passing and we are happy with the solution!
+
 ![intro-unit-testing-3](/assets/intro-unit-testing-3.PNG)
+
+### Streams and Lambda Expressions
+** THIS SECTION IS WIP AND NEEDS TO BE RESTRUCTURED TO BE A BIT MORE DIDACTIC **
+
+Streams are wrappers around a data source, allowing us to operate with that data source and making bulk processing convenient and fast. 
+
+A use case for streams is, for example, to do operations on an ArrayList without having to loop through said ArrayList. 
+
+
+#### Use case example
+Given the following class Filter:
+```java
+import java.util.ArrayList;
+
+public class Filter {
+    static ArrayList<Double> prices = new ArrayList<Double>();
+    public static void main(String[] args) {
+        prices.add(1.99);
+        prices.add(4.99);
+        prices.add(10.99);
+        prices.add(15.99);
+
+        filterLowPrices();
+    }
+
+    public static void filterLowPrices() {
+        System.out.println("\n\nLOW PRICES");
+        for (int i = 0; i < prices.size(); i++) {
+            if (prices.get(i) < 5) {
+                System.out.println(prices.get(i)); 
+            }
+        }
+    }
+}
+```
+The function filterLowPrices loops through every element of the array and prints the values that are less than 5.
+
+We can do the same using streams like this:
+```java
+import java.util.ArrayList;
+import java.util.stream.*;
+
+public class Filter {
+    static ArrayList<Double> prices = new ArrayList<Double>();
+    public static void main(String[] args) {
+        prices.add(1.99);
+        prices.add(4.99);
+        prices.add(10.99);
+        prices.add(15.99);
+
+        prices.stream()                         // Treat prices as a stream
+            .filter((price) -> {                // Intermediate operation: Filter
+                return price < 5;
+            })
+            .forEach((price) ->{                // Terminal operation: forEach
+                System.out.println(price);
+            });
+    }
+}
+```
+So whats going on here?
+- First we treat prices as a stream, using prices.stream()
+- Directly below we have the pipeline, consisting of:
+    1. One intermediate operation. 
+        - An intermediate operation processes the sequence of elements and then continues the pipeline.
+            - In this case, the intermediate operation is .filter(*lambda expression*). 
+            - We filter the prices which are less than 5 and discard the rest. This is determined by the lambda expression inside .filter(). 
+            - The updated sequence of prices then continues through the pipeline.
+
+    2. One terminal operation.
+        - A terminal operation ends the pipeline and may return a final value.
+            - In this case, the terminal operation is .forEach(*lambda expression*).
+            - The lambda expression of forEach recieves each value from the updated sequence of elements coming from the previous operation in the pipeline.
+            - In this case, we print all the filtered values.
+
+#####Lambda expression syntax
+```java
+((parameter) -> {
+  code goes here
+})
+```
+
