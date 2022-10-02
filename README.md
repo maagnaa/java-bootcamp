@@ -956,9 +956,9 @@ System.out.println(store);
 store.open();        
 ```
 
-### Mutable and Inmutable Objects
+### Mutable and Immutable Objects
 
-- **Inmutable Objects** are objects that, once created, always represent the same value. 
+- **Immutable Objects** are objects that, once created, always represent the same value. 
 - **Mutable Objects** are objects that have methods to change the value of the object.
 
 A nice reference I found on this topic: ![Mutability & Immutability](https://web.mit.edu/6.005/www/fa16/classes/09-immutability/)
@@ -974,7 +974,7 @@ Car car = new Car("Nissan", 10000);
 car.setMake("Honda");
 ```
 
-#### Inmutable Objects
+#### immutable Objects
 - Objects whose state is impossible to update after creation. 
 - Eg. object will all-private fields and no setters/mutators.
 
@@ -985,7 +985,7 @@ car.setMake("Honda");
 
 ```java
 int         mutableWholeNumber      = 5;                    // Primitive. No methods, cannot be null.
-Integer     inmutableWholeNumber    = Integer.valueOf(5);   // Wrapper around int. Stores a ref. to the integer value. 
+Integer     immutableWholeNumber    = Integer.valueOf(5);   // Wrapper around int. Stores a ref. to the integer value. 
 ```
 ![wrappermethods](https://github.com/maagnaa/java-bootcamp/blob/master/assets/wrapper_methods.PNG)
 
@@ -1041,9 +1041,13 @@ public class ResizableArrays {
 }
 ```
 
+## 2.3 Unit Testing, Stream API and Lambda Expressions
+
+In the context of unit testing, the smallest testable parts of an application are considered units.
+Unit testing is a testing methodology where every single unit has a test. 
+
 
 
 ```java
 
 ```
-
