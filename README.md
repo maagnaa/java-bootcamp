@@ -1082,6 +1082,7 @@ So far, no functionality has been implemented, but we can see the array of price
 With the prices, we can find the values the testcases need to check for.
 
 We start with the first testcase we identified by calculating the expected value of the subtotal.
+
 Subtotal = 2.23 + 1.32 + 4.32 + 11.33 **= 19.2**
 
 We create the following test class:
@@ -1187,3 +1188,5 @@ public class Main {
     }
 }
 ```
+We can see that all tests are passing and we are happy with the solution!
+![intro-unit-testing-3](/assets/intro-unit-testing-3.PNG)
