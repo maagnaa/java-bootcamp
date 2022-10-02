@@ -5,52 +5,53 @@ This repository contains exercises and progress for [The Complete Java Developme
 Notes and summary of key learnings and takeaways is found below the content overview.
 
 ##  Content Overview
+
 ### Module 1 - Java Fundamentals
-1. **Getting Started** 
+1. [Getting Started](https://github.com/maagnaa/java-bootcamp#11-getting-started) 
     - [X] 1 Workbook
     - [X] Summary Assignment
     - Completed 16/09/22
-2. **Variables**
+2. [Variables](https://github.com/maagnaa/java-bootcamp#12-variables)
     - [X] 5 Workbooks
     - [X] Summary Assignment
     - Completed 16/09/22
-3. **Booleans and Conditionals**
+3. [Booleans and Conditionals](https://github.com/maagnaa/java-bootcamp#13-booleans-and-conditionals)
     - [X] 7 Workbooks
     - [X] Summary Assignment
     - Completed 19/09/22
-4. **Functions**
+4. [Functions](https://github.com/maagnaa/java-bootcamp#14-functions)
     - [X] 5 Workbooks
     - [X] Summary Assignment
     - Completed 20/09/22
-5. **Loops**
+5. [Loops](https://github.com/maagnaa/java-bootcamp#15-loops)
     - [X] 11 Workbooks
     - [X] Summary Assignment - **Game of Pokerito**
     - [X] Summary Assignment - **Game of BlackJack**
     - Completed 20/09/22
-6. **Arrays**
+6. [Arrays](https://github.com/maagnaa/java-bootcamp#16-arrays)
     - [X] 14 Workbooks
     - [X] Summary Assignment - **Game of TicTacToe**
     - Completed 23/09/22
-7. **Capstone Project** 
+7. Capstone Project 
     - [X] Module Summary Assignment - **Game of Hangman**
     - Completed 23/09/22
 
 ### Module 2 - Object-Oriented Programming
-1. **Objects**
+1. [Objects](https://github.com/maagnaa/java-bootcamp#21-classes-and-objects)
     - [X] Workbook: airline-reservation-system
     - [X] Summary Assignment: vending-machine
     - Completed 26/09/22
-2. **Debugging and Exception Handling** 
+2. [Debugging and Exception Handling](https://github.com/maagnaa/java-bootcamp#22-debugging-and-exception-handling) 
     - [X] 10 Workbooks - Debugging
     - Completed 28/09/22
     - [X] 4 Workbooks - Exception Handling
     - [x] Summary Assignment
     - Completed 01/10/22
-3. **Unit Testing, Stream API and Lambda Expressons**
+3. [Unit Testing, Stream API and Lambda Expressons](https://github.com/maagnaa/java-bootcamp#23-unit-testing-stream-api-and-lambda-expressions)
     - [ ] Summary Assignment
-4. **Inheritance and Polymorphism**
+4. Inheritance and Polymorphism
     - [ ] Summary Assignment
-5. **Capstone Project** 
+5. Capstone Project 
     - [ ] Module Summary Assignment
 
     
@@ -262,7 +263,7 @@ public class InteractiveApp {
 }
 ```
 
-## 1.3. - Booleans and Conditionals
+## 1.3. Booleans and Conditionals
 
 ### Comparison Operators
 
@@ -1193,7 +1194,7 @@ We can see that all tests are passing and we are happy with the solution!
 ![intro-unit-testing-3](/assets/intro-unit-testing-3.PNG)
 
 ### Streams and Lambda Expressions
-** THIS SECTION IS WIP AND NEEDS TO BE RESTRUCTURED TO BE A BIT MORE DIDACTIC **
+** **THIS SECTION IS WIP AND NEEDS TO BE RESTRUCTURED TO BE A BIT MORE DIDACTIC** **
 
 Streams are wrappers around a data source, allowing us to operate with that data source and making bulk processing convenient and fast. 
 
@@ -1241,16 +1242,12 @@ public class Filter {
         prices.add(10.99);
         prices.add(15.99);
 
-        prices.stream()                         // Treat prices as a stream
-            .filter((price) -> {                // Intermediate operation: Filter
-                return price < 5;
-            })
-            .forEach((price) ->{                // Terminal operation: forEach
-                System.out.println(price);
-            });
+        prices.stream()                                 // Treat prices as a stream
+            .filter((price)     -> price < 5)                       // Intermediate OP
+            .forEach((price)    ->  System.out.println(price));     // Terminal OP
     }
 }
-```
+``` 
 So whats going on here?
 - First we treat prices as a stream, using prices.stream()
 - Directly below we have the pipeline, consisting of:
