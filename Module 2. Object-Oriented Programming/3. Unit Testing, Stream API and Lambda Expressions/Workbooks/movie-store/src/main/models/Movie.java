@@ -103,4 +103,29 @@ public class Movie {
                "\t Availability: " + (this.isAvailable ? "in-stock" : "rented") + "\n";
     }
 
+    // To compare the content of objects instead of equality of reference
+    public boolean equals(Object obj){     
+        // return false if parameter is null
+        if(obj == null){
+            return false;
+        }
+        // return false if parameter isn't instance of Movie class
+        if (!(obj instanceof Movie)) {
+            return false;
+        }
+
+        // typecast the object parameter to Movie
+        Movie movie = (Movie)obj;
+
+        // compare fields from both objects and return the result
+        boolean result = (  this.name.equals(movie.name) &&
+                            this.format.equals(movie.format) &&
+                            this.rating == movie.rating &&
+                            this.sellingPrice == movie.sellingPrice &&
+                            this.rentalPrice == movie.rentalPrice &&
+                            this.isAvailable == movie.isAvailable );
+
+        return result;
+    }
+
 }
