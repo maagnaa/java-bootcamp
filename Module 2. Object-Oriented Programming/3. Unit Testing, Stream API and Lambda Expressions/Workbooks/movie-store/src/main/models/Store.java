@@ -49,6 +49,9 @@ public class Store {
     *   2. removes the movie that matches the name passed in. 
     */
     public void sellMovie(String name){
+        if(!(movieExists(name))){
+            throw new IllegalArgumentException("Cannot sell a movie that does not exist in store");
+        }
         if(!(movieIsAvailable(name))){
             throw new IllegalStateException("Cannot sell a movie that is not available");
         }
@@ -57,11 +60,65 @@ public class Store {
 
     }
 
+    /**
+     * Function name: rentMovie
+    * @param name
+    * 
+    * Inside the function:
+    *   1. Loop runs through every element
+    *   2. Set the matching element's availability to false.
+    * 
+    */
+    public void rentMovie(String name){
+        if(!(movieExists(name))){
+            throw new IllegalArgumentException("Cannot rent a movie that does not exist in store");
+        }
 
+        this.movies.stream()                
+            .filter(movie -> movie.getName().equals(name))
+            .forEach(movie -> movie.setAvailable(false));
+    }
+
+
+    /**
+     * Function name: returnMovie
+     * @param name
+     * 
+     * Inside the function:
+     *   1. Set the movie's availability to true.
+     */
+    public void returnMovie(String name){
+        if(!(movieExists(name))){
+            throw new IllegalArgumentException("Cannot return a movie that does not exist in store!");
+        }
+        if(movieIsAvailable(name)){
+            throw new IllegalStateException("Cannot return a movie that is marked as available in store!");
+        }
+
+        this.movies.stream()
+            .filter(movie -> movie.getName().equals(name))
+            .forEach(movie -> movie.setAvailable(true));
+    }
+    /**
+     * Function name: movieExists
+     * @param movieName
+     * @return (boolean)
+     * 
+     * Inside the function:
+     *    1. checks if a movie with name movieName exists in store
+     */
     public boolean movieExists(String movieName){
         return this.movies.stream().anyMatch(movie -> movie.getName().equals(movieName));
     }
 
+    /**
+     * Function name: movieIsAvailable
+     * @param movieName
+     * @return (boolean)
+     * 
+     * Inside the function:
+     *    1. checks if a movie with name movieName has a isAvailable value equal to TRUE
+     */
     public boolean movieIsAvailable(String movieName){
         return this.movies.stream()
                 .filter(movie -> movie.getName().equals(movieName))
