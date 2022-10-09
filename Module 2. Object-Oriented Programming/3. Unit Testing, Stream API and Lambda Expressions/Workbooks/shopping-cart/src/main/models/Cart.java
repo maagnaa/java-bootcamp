@@ -33,7 +33,15 @@ public class Cart {
         return true;
     }
 
-    public boolean itemExists(String name){
+    public void remove(String name){
+        if(!(contains(name))){
+            throw new IllegalStateException("Cannot remove an item that has not been added to the cart");
+        }
+
+        this.items.removeIf(item -> item.getName().equals(name));
+    }
+
+    public boolean contains(String name){
         return this.items.stream().anyMatch(item -> item.getName().equals(name));
     }
 
