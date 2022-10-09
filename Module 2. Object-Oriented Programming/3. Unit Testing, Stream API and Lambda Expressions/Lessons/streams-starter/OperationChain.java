@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class OperationChain {
     static ArrayList<Double> prices = new ArrayList<Double>();
@@ -9,23 +10,11 @@ public class OperationChain {
         prices.add(15.99);
 
         ArrayList<Double> updatePrices = new ArrayList<Double>();
-        filterLowPrices(updatePrices);
-        tax(updatePrices);
+        updatePrices.addAll(prices.stream()
+            .filter((price)-> price < 5)        // Filter prices lower than 5
+            .map((price) -> price*1.13)         // Add tax to prices lower than 5
+            .collect(Collectors.toList()));     // Return the filtered and taxed prices as a list
 
     }
     
-    // Filtes prices lower than 5 
-    public static void filterLowPrices(ArrayList<Double> lowPrices) {
-        for (int i = 0; i < prices.size(); i++) {
-            if (prices.get(i) < 5) {
-                lowPrices.add(prices.get(i));
-            }
-        }
-    }
-    // Updates each price by adding the tax
-    public static void tax(ArrayList<Double> withTax) {
-        for (int i = 0; i < withTax.size(); i++) {
-                withTax.set(i, withTax.get(i) * 1.13);
-        }
-    }
 }

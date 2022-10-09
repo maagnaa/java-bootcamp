@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class FilterTwo {
 
@@ -13,15 +14,14 @@ public class FilterTwo {
 
         ArrayList<Double> lowPrices = new ArrayList<Double>();
     
-        filterLowPrices(lowPrices);
+        lowPrices.addAll(
+            prices.stream()
+                .filter((price) -> price < 5)       // Intermediate operation that updates the stream by filtering the elements based on a predicate
+                .collect(Collectors.toList()));     // Collect is a terminal operation that ends the pipeline. It collects the updated sequence of objects. 
+                                                    // The updated sequence is returned as a list [since we use .toList()] 
+                                                    
+                                                    
     }
 
-    public static void filterLowPrices(ArrayList<Double> lowPrices) {
-        for (int i = 0; i < prices.size(); i++) {
-            if (prices.get(i) < 5) {
-                lowPrices.add(prices.get(i));
-            }
-        }
-    }
 
 }

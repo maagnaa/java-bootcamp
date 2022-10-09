@@ -1157,6 +1157,7 @@ public class checkoutTest{
     }
 }
 ```
+
 And the main class looks like this:
 ```java
 package src.main;
@@ -1196,12 +1197,11 @@ We can see that all tests are passing and we are happy with the solution!
 ### Streams and Lambda Expressions
 ** **THIS SECTION IS WIP AND NEEDS TO BE RESTRUCTURED TO BE A BIT MORE DIDACTIC** **
 
-Streams are wrappers around a data source, allowing us to operate with that data source and making bulk processing convenient and fast. 
+Streams are wrappers around a data source, allowing us to operate with that data source and making bulk operations convenient and fast. 
 
 A use case for streams is, for example, to do operations on an ArrayList without having to loop through said ArrayList explicitly. 
 
-
-#### Use case example
+##### Use case example:
 Given the following class Filter:
 ```java
 import java.util.ArrayList;
@@ -1213,7 +1213,6 @@ public class Filter {
         prices.add(4.99);
         prices.add(10.99);
         prices.add(15.99);
-
         filterLowPrices();
     }
 
@@ -1268,7 +1267,7 @@ So whats going on here?
             - The lambda expression of forEach recieves each value from the updated sequence of elements coming from the previous operation in the pipeline.
             - In this case, we print all the filtered values.
 
-##### Lambda expression syntax
+#### Lambda expression syntax
 
 - The name of the '**->**' in the lambda expression is **arrow token**.
 - The body of a lambda expression can contain zero, one or more statements.
@@ -1294,9 +1293,17 @@ So whats going on here?
 ```
 
 
-Alternative syntax for the lambda expressions in the example from before is:
+An alternative syntax for the lambda expressions in the example we looked at before is:
 ```java
         prices.stream()                                             
             .filter((price)     -> price < 5)                       
             .forEach((price)    ->  System.out.println(price));     
 ```
+
+#### More Streams Operations
+
+In the streams-starter lesson, following pipeline operations are introduced:
+- .filter() : filters based on predicate
+- .foreach() : does something for each element in the sequence
+- .map() : updates and returns every element coming into that step of the pipeline      
+- .collect() : terminal operation that returns the updated sequence of elements at the end of the pipeline
