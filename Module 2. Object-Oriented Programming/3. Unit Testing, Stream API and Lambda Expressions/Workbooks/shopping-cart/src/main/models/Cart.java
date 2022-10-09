@@ -17,9 +17,29 @@ public class Cart {
         this.items.set(index, new Item(item));
     }
 
+    /**
+     * Function name: add
+     * @param item 
+     * 
+     * Inside the function:
+     *   1. adds an Item object
+     */
+    public boolean add(Item item){
+        if(contains(item)){
+            return false;
+        }
 
+        this.items.add(new Item(item));
+        return true;
+    }
 
+    public boolean itemExists(String name){
+        return this.items.stream().anyMatch(item -> item.getName().equals(name));
+    }
 
+    public boolean contains(Item item){
+        return this.items.stream().anyMatch(sItem -> sItem.equals(item));
+    }
     
     public String toString() {
         String temp = "";
