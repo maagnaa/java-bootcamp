@@ -40,6 +40,35 @@ public class Store {
         return this.movies.contains(movie);
      }
 
+    /**
+    * Function name: sellMovie
+    * @param name (String)
+    * 
+    * Inside the function:
+    *   1. loop runs through the size of the ArrayList.
+    *   2. removes the movie that matches the name passed in. 
+    */
+    public void sellMovie(String name){
+        if(!(movieIsAvailable(name))){
+            throw new IllegalStateException("Cannot sell a movie that is not available");
+        }
+
+        this.movies.removeIf(movie -> movie.getName().equals(name));
+
+    }
+
+
+    public boolean movieExists(String movieName){
+        return this.movies.stream().anyMatch(movie -> movie.getName().equals(movieName));
+    }
+
+    public boolean movieIsAvailable(String movieName){
+        return this.movies.stream()
+                .filter(movie -> movie.getName().equals(movieName))
+                .map(movie -> movie.isAvailable())
+                .findFirst().orElse(false);                                
+    }
+
     public String toString() {
         String temp = "";
         for (int i = 0; i < this.movies.size(); i++) {

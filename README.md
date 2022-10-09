@@ -1307,3 +1307,19 @@ In the streams-starter lesson, following pipeline operations are introduced:
 - .foreach() : does something for each element in the sequence
 - .map() : updates and returns every element coming into that step of the pipeline      
 - .collect() : terminal operation that returns the updated sequence of elements at the end of the pipeline
+
+#### From workbooks:
+- .anymatch() : returns a boolean if there is a match
+- .findFirst().orElse() : terminal operation that returns first match (depending on previous pipeline step). Returns value within orElse() if no match is found (eg. null/false)
+
+Also used map to access an element in object instead of just updating the element value coming into that step of the pipeline.
+
+From movie-store workbook:
+```java
+public boolean movieIsAvailable(String movieName){
+        return this.movies.stream()
+                .filter(movie -> movie.getName().equals(movieName)) // First find element that has a name that matches the movieName parameter
+                .map(movie -> movie.isAvailable()) // Use map to access isAvailable field
+                .findFirst().orElse(false);  // Find and return the first match, else return false                              
+    }
+```
