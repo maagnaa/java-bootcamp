@@ -1,19 +1,75 @@
 package src.main.models;
 
-public class Team {
+import java.util.Arrays;
+import java.util.Objects;
 
+
+public class Team {
+    // Fields
+    private String house;
+    private String keeper;
+    private String seeker;
+    private String[] chasers;
+    // Static Variables
     private static final String POSITION_CHASER = "chaser";
     private static final String POSITION_SEEKER = "seeker";
     private static final String POSITION_KEEPER = "keeper";
-
-/* FREQUENTLY ASKED QUESTIONS:
     
-Question: the constants are final, so why can't we make them public? It's not possible for the caller to update them.
-  Answer: Even if the constant is final, I prefer to expose a method instead of the variable. But if you want to expose the variable, that's also correct.
+    // Constructor
+    public Team(String house, String keeper, String seeker, String[] chasers){
+        // Check validity of string parameters
+        checkStringParamValidity(house);
+        checkStringParamValidity(keeper);
+        checkStringParamValidity(seeker);
+        // Check validity of chasers parameter 
+        checkChaserParamValidity(chasers);
 
-*/
+        this.house = house;
+        this.keeper = keeper;
+        this.seeker = seeker;
+        this.chasers = Arrays.copyOf(chasers, chasers.length);
+    }
 
-    
+    // Copy Constructor
+    public Team(Team source){
+        this.house = source.house;
+        this.keeper = source.keeper;
+        this.seeker = source.seeker;
+        this.chasers = Arrays.copyOf(source.chasers, source.chasers.length);
+    }
+
+    // Field Getters
+    public String getHouse(){
+        return house;
+    }
+    public String getKeeper(){
+        return keeper;
+    }
+    public String getSeeker(){
+        return seeker;
+    }
+    public String[] getChasers(){
+        return Arrays.copyOf(chasers, chasers.length);
+    }
+    // Field Setters
+    public void setHouse(String house){
+        checkStringParamValidity(house);
+        this.house = house;
+    }
+    public void setKeeper(String keeper){
+        checkStringParamValidity(keeper);
+        this.keeper = keeper;
+    }
+    public void setSeeker(String seeker){
+        checkStringParamValidity(seeker);
+        this.seeker = seeker;
+    }
+    public void setChasers(String[] chasers){
+        checkChaserParamValidity(chasers);
+        this.chasers = Arrays.copyOf(chasers, chasers.length);
+    }
+
+    // Getters for Static Variables
      public static String getPositionChaser() {
          return POSITION_CHASER;
      }
@@ -26,4 +82,36 @@ Question: the constants are final, so why can't we make them public? It's not po
          return POSITION_KEEPER;
      }
 
+     // hasNull
+     public static boolean hasNull(String[] array){
+        return Arrays.stream(array).anyMatch(element -> element == null);
+     }
+     // hasBlank
+     public static boolean hasBlank(String[] array){
+        return Arrays.stream(array).anyMatch(element -> element.isBlank());
+     }
+     // checkStringParamValidity
+     public void checkStringParamValidity(String param){
+        if(param == null || param.isBlank()){
+            throw new IllegalArgumentException("Parameter cannot be null or blank.");
+        }
+     }
+     // checkChaserParamValidity
+     public void checkChaserParamValidity(String[] param){
+        // Check for illegal length of chasers array
+        if(param.length != 3){
+            throw new IllegalArgumentException("Chasers array length is not the required 3.");
+        }
+        if(hasNull(param)||hasBlank(param)){
+            throw new IllegalArgumentException("One or more element in chasers array is null or blank");
+        }
+     }
+
+     // toString
+     public String toString(){
+        return  "House:   " + this.house                    + "\n" +
+                "Keeper:  " + this.keeper                   + "\n" +         
+                "Seeker:  " + this.seeker                   + "\n" +         
+                "Chasers: " + Arrays.toString(this.chasers) + "\n";
+     }
 }

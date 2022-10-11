@@ -1,13 +1,18 @@
 package src.main;
 import src.main.models.Game;
+import src.main.models.Team;
 
 public class Main {
 
     static Game game;
 
     public static void main(String[] args) {
+        Team teamA = new Team("GRYFFINDOR", "Oliver", "Harry", new String[] {"Angelina", "Ginny", "Katie"});
+        Team teamB = new Team("SLYTHERIN", "Vincent",  "Draco", new String[] {"Bridget", "Harper", "Malcolm"}); 
+    
+        System.out.println("Team A \n\n" + teamA.toString() + "\n\n");
+        System.out.println("Team B \n\n" + teamB.toString() + "\n\n");
 
-        
     }
 
 
