@@ -91,13 +91,13 @@ public class Team {
         return Arrays.stream(array).anyMatch(element -> element.isBlank());
      }
      // checkStringParamValidity
-     public void checkStringParamValidity(String param){
+     public static void checkStringParamValidity(String param){
         if(param == null || param.isBlank()){
             throw new IllegalArgumentException("Parameter cannot be null or blank.");
         }
      }
      // checkChaserParamValidity
-     public void checkChaserParamValidity(String[] param){
+     public static void checkChaserParamValidity(String[] param){
         // Check for illegal length of chasers array
         if(param.length != 3){
             throw new IllegalArgumentException("Chasers array length is not the required 3.");
