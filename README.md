@@ -580,6 +580,71 @@ System.out.println(nimi.toString());
 | **Pitfall**   | The outside variable and field share a reference to the same object.  |
 | **Solution**  | Return a *new* copy of the object.                                    |
 
+
+### Fields vs. Static Variables / Methods
+
+A **field** belongs to an object. 
+A public non-static method must be called from an object instance.
+
+A **static variable** belongs to a class.
+A static method belongs to a class and can only static access static variables.
+
+##### Example
+Given the following class Employee:
+``` java
+public class Employee {
+    // Fields belong to an object
+    private String name;
+    private String position;
+
+    // ... but static variables belong to a class
+    private static int hiredCount; 
+    private static final String COMPANY_NAME = "JAVASTARS";
+
+    // Constructor
+    public Employee(String name, String position) {
+        this.name = name;
+        this.position = position;
+        hiredCount ++;
+    }
+
+    // Non-static methods, must be called from an object instance
+    public String getName() {
+        return name;
+    }
+    public String getPosition() {
+        return position;
+    }
+  
+    // Static methods belong to the class and can only access static variables 
+    public static int getHiredCount() {
+        return hiredCount;
+    }
+    public static String getCompanyName() {
+        return COMPANY_NAME;
+    }
+
+    // etc..
+}
+```
+
+``` java
+public class Main {
+    public static void main(String[] args) {
+        Employee nimi = new Employee("Nimi", "Assistant Manager");
+        Employee pus = new Employee("Pus","CEO");
+        Employee magna = new Employee("Magna", "Renholder");
+        System.out.println("Headcount: "+Employee.getHiredCount());
+    }
+}
+```
+
+Result output:
+``` java
+>> Headcount: 3
+```
+
+
 ## 2.2 Debugging and Exception Handling
 
 This section is split in two:
