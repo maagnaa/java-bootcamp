@@ -728,6 +728,7 @@ public class ResizableArrays {
 }
 ```
 
+
 ## 2.2 Debugging and Exception Handling
 
 This section is split in two:
@@ -1386,3 +1387,60 @@ public boolean movieIsAvailable(String movieName){
                 .findFirst().orElse(false);  // Find and return the first match, else return false                              
     }
 ```
+
+### HashMap
+Both ArrayList and HashMap are collection types, however:
+- Every entry in an ArrayList is a single value.
+- Every entry in a HashMap is a pair of data.
+
+A HashMap stores key-value pairs, and is useful when there is parity between data. 
+```java
+HashMap<KeyType,ValueType> hashMap = new HashMap<KeyType,ValueType>()
+```
+Consider the following class KeyValues
+```java
+public class KeyValues {
+    public static void main(String[] args) {
+        String[] vegetables = new String[] {"Cauliflower", "Spaghetti Squash", "Parsley"};
+        double[] prices = new double[] {4.99, 1.99, 6.99};
+    }
+}
+```
+The main method contains two arrays: vegetables and prices. The values in both arrays correspond to each other. This means, the price of a Cauliflower is 4.99, the price of a Spaghetti Squash is 1.99, and the price of Parsley is 6.99.
+
+This can instead be implemented as a HashMap as follows:
+```java
+import java.util.HashMap;
+
+public class KeyValues {
+    public static void main(String[] args) {
+        HashMap<String,Double> items = new HashMap<String,Double>();
+        items.put("Cauliflower",4.99);
+        items.put("Spaghetti Squash",1.99);
+        items.put("Parsley",6.99);
+    }
+}
+```
+Now the relationship between each item and its price is made explicit. Notice that we use Double instead of double for the ValueType. This is because, like with ArrayList, we cannot store primitives in a HashMap, only objects.
+
+Note that in order to add entries to the HashMap, we used the put() method. This method adds an entry to the HashMap if the key doesn't already exist, and updates the entry if the key already exists.
+
+HashMap also has a get() method, which can be used to retrieve a value based on its key.
+```java
+System.out.println("Price of Cauliflower: "+ Double.toString(items.get("Cauliflower")));
+```
+```
+>> Price of Cauliflower: 4.99
+```
+Note that HashMap entries **are not ordered**. When we add a new entry, its placement is random. Therefore, HashMap **cannot be indexed**.
+
+To print all key-value pairs using lambda expressions:
+```java
+items.forEach((key,value) -> System.out.println(key+": "+value));        
+```
+```
+>> Cauliflower: 4.99
+>> Parsley: 6.99
+>> Spaghetti Squash: 1.99
+```
+
