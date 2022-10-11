@@ -19,6 +19,7 @@ public class Main {
         System.out.println("Home Score: "+game.getScore(home));
         System.out.println("Away Score: "+game.getScore(away));
 
+        System.out.println("Test getTeam: \n"+game.getTeam("GRYFFINDOR"));
     }
 
 

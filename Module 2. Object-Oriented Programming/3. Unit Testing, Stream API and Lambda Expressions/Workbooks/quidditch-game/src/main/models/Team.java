@@ -137,7 +137,7 @@ public class Team {
                 thisChasers.equals(sourceChasers)   );
      }
 
-     
+    // Ensure equal objects have equal hashcodes
     public int hashCode() {
         return Objects.hash(house, keeper, seeker, Arrays.toString(chasers));
     }
