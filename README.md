@@ -48,7 +48,9 @@ Notes and summary of key learnings and takeaways is found below the content over
     - [x] Summary Assignment
     - Completed 01/10/22
 3. [Unit Testing, Stream API and Lambda Expressons](https://github.com/maagnaa/java-bootcamp#23-unit-testing-stream-api-and-lambda-expressions)
-    - [ ] Summary Assignment
+    - [x] 2 Workboks
+    - [x] Summary Assignment
+    - Completed 11/10/22
 4. Inheritance and Polymorphism
     - [ ] Summary Assignment
 5. Capstone Project 

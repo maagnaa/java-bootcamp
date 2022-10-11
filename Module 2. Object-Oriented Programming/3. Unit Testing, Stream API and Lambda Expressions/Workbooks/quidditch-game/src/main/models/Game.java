@@ -116,4 +116,35 @@ public class Game {
     public int random(int range){
         return ThreadLocalRandom.current().nextInt(0,range);
     }
+
+    /**
+     * Function name: simulate(String play)
+     * @return String
+     * 
+     *  1. From the play, retrieve the placeholder.
+     *  2. Get a random team from the HashMap
+     *  3. Check the placeholder 
+     *      - Team.POSITION_CHASER -> score with quaffle -> get name of a Chaser
+     *      - Team.POSITION_SEEKER -> catch snitch -> get name of Seeker
+     *      - Team.POSITION_KEEPER -> get name of Keeper
+     *  4. return a string using replacePlaceHolder describing the play
+     */
+    public String simulate(String play) {
+        String placeholder = getPlaceHolder(play);
+        Team team = getRandomTeam();
+        String value = "";
+        
+        if (placeholder.equals(Team.getPositionChaser())) {
+            quaffleScore(team);
+            value = team.getChasers()[random(team.getChasers().length)];
+        } else if (placeholder.equals(Team.getPositionSeeker())) {
+            catchSnitch(team);
+            value = team.getSeeker();
+        } else if (placeholder.equals(Team.getPositionKeeper())) {
+            value = team.getKeeper();
+        } 
+
+        return replacePlaceHolder(play, placeholder, value);
+    }
+
 }
