@@ -643,7 +643,90 @@ Result output:
 ``` java
 >> Headcount: 3
 ```
+### Mutable and Immutable Objects
 
+- **Immutable Objects** are objects that, once created, always represent the same value. 
+- **Mutable Objects** are objects that have methods to change the value of the object.
+
+A nice reference I found on this topic: ![Mutability & Immutability](https://web.mit.edu/6.005/www/fa16/classes/09-immutability/)
+
+#### Mutable Objects
+
+- Another name for a setter method is mutator method.
+- It follows that objects with setter methods are mutable objects: their value can be changed after creation. 
+
+
+```java
+Car car = new Car("Nissan", 10000);
+car.setMake("Honda");
+```
+
+#### immutable Objects
+- Objects whose state is impossible to update after creation. 
+- Eg. object will all-private fields and no setters/mutators.
+
+### Wrapper Classes
+
+>A Wrapper class is a class whose object wraps or contains primitive data types. When we create an object to a wrapper class, it contains a field and in this field, we can store primitive data types. In other words, we can wrap a primitive value into a wrapper class object.
+
+
+```java
+int         mutableWholeNumber      = 5;                    // Primitive. No methods, cannot be null.
+Integer     immutableWholeNumber    = Integer.valueOf(5);   // Wrapper around int. Stores a ref. to the integer value. 
+```
+![wrappermethods](/assets/wrapper_methods.PNG)
+
+
+**Autoboxing:** Automatic conversion of primitive types to the object of their corresponding wrapper classes is known as autoboxing. \
+For example: conversion of int to Integer, long to Long, double to Double etc.
+
+**Unboxing:** The reverse of autoboxing. For example: conversion of Integer to int, Long to long, Double to double, etc. 
+
+##### When to use primitive vs. wrapper
+- Primitives take up less space and are faster.
+- Use Wrapper only when absolutely necessary. Eg. when:
+    - The variable needs to be nullable.
+    - The variable must be able to call a method.
+
+### ArrayList
+Since usually arrays need to be constrained and cannot be updated without creating a new array with a new size constraint...
+
+ArrayList:
+- Is resizable. Can add or remove elements.
+- Can only store **objects**. It cannot store primitives.
+
+```java
+import java.util.ArrayList;
+```
+```java
+ArrayList <class type> collection = new ArrayList<class type>();    // *< >* denotes a generic 
+                                                                    // It can only accept class types (never primitives).
+```
+
+#### Example usage
+
+```java
+import java.util.ArrayList;
+
+public class ResizableArrays {
+    public static void main(String[] args) {
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("Magna");
+        names.add("Pus");
+        names.add("Nimi");
+        names.add("Katrine");
+        names.add("Frank");                             
+
+        for(int i=0; i < names.size(); i++){
+            System.out.println(names.get(i));
+        }
+
+        names.set(0, "Magna the Mindblown"); 
+        names.remove(1);                        // Remove item at index 1. Pus has left the game.
+        names.clear();                          // Clear the whole ArrayList. 
+    }
+}
+```
 
 ## 2.2 Debugging and Exception Handling
 
@@ -1020,91 +1103,6 @@ store.setEmployees(2, manager);
 
 System.out.println(store);
 store.open();        
-```
-
-### Mutable and Immutable Objects
-
-- **Immutable Objects** are objects that, once created, always represent the same value. 
-- **Mutable Objects** are objects that have methods to change the value of the object.
-
-A nice reference I found on this topic: ![Mutability & Immutability](https://web.mit.edu/6.005/www/fa16/classes/09-immutability/)
-
-#### Mutable Objects
-
-- Another name for a setter method is mutator method.
-- It follows that objects with setter methods are mutable objects: their value can be changed after creation. 
-
-
-```java
-Car car = new Car("Nissan", 10000);
-car.setMake("Honda");
-```
-
-#### immutable Objects
-- Objects whose state is impossible to update after creation. 
-- Eg. object will all-private fields and no setters/mutators.
-
-### Wrapper Classes
-
->A Wrapper class is a class whose object wraps or contains primitive data types. When we create an object to a wrapper class, it contains a field and in this field, we can store primitive data types. In other words, we can wrap a primitive value into a wrapper class object.
-
-
-```java
-int         mutableWholeNumber      = 5;                    // Primitive. No methods, cannot be null.
-Integer     immutableWholeNumber    = Integer.valueOf(5);   // Wrapper around int. Stores a ref. to the integer value. 
-```
-![wrappermethods](/assets/wrapper_methods.PNG)
-
-
-**Autoboxing:** Automatic conversion of primitive types to the object of their corresponding wrapper classes is known as autoboxing. \
-For example: conversion of int to Integer, long to Long, double to Double etc.
-
-**Unboxing:** The reverse of autoboxing. For example: conversion of Integer to int, Long to long, Double to double, etc. 
-
-##### When to use primitive vs. wrapper
-- Primitives take up less space and are faster.
-- Use Wrapper only when absolutely necessary. Eg. when:
-    - The variable needs to be nullable.
-    - The variable must be able to call a method.
-
-### ArrayList
-Since usually arrays need to be constrained and cannot be updated without creating a new array with a new size constraint...
-
-ArrayList:
-- Is resizable. Can add or remove elements.
-- Can only store **objects**. It cannot store primitives.
-
-```java
-import java.util.ArrayList;
-```
-```java
-ArrayList <class type> collection = new ArrayList<class type>();    // *< >* denotes a generic 
-                                                                    // It can only accept class types (never primitives).
-```
-
-#### Example usage
-
-```java
-import java.util.ArrayList;
-
-public class ResizableArrays {
-    public static void main(String[] args) {
-        ArrayList<String> names = new ArrayList<String>();
-        names.add("Magna");
-        names.add("Pus");
-        names.add("Nimi");
-        names.add("Katrine");
-        names.add("Frank");                             
-
-        for(int i=0; i < names.size(); i++){
-            System.out.println(names.get(i));
-        }
-
-        names.set(0, "Magna the Mindblown"); 
-        names.remove(1);                        // Remove item at index 1. Pus has left the game.
-        names.clear();                          // Clear the whole ArrayList. 
-    }
-}
 ```
 
 ## 2.3 Unit Testing, Stream API and Lambda Expressions
