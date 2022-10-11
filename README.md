@@ -1606,3 +1606,6 @@ Nissan2 Hashcode        =>      -673365575
 ```
 We see that nissan and nissan2 have the same hashcode now, and that we can access the entry in the prices HashMap using nissan2 as the key value. 
 
+## 2.4 Inheritance and Polymorphism
+
+Every class in Java has a common ancestor: the object class.
