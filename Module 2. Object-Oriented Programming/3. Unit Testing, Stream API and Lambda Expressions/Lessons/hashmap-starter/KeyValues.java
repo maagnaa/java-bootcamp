@@ -8,5 +8,7 @@ public class KeyValues {
         items.put("Parsley",6.99);
 
         items.forEach((key,value) -> System.out.println(key+": "+value));        
+
+        items.keySet().stream().forEach(key -> System.out.println(key));
     }
 }

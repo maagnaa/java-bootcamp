@@ -114,4 +114,31 @@ public class Team {
                 "Seeker:  " + this.seeker                   + "\n" +         
                 "Chasers: " + Arrays.toString(this.chasers) + "\n";
      }
+
+    // Comparison based on fields, not references
+    public boolean equals(Object obj){
+        // Check for null
+        if(obj == null){
+            return false;
+        }
+        // Check that the object is an instance of team
+        if(!(obj instanceof Team)){
+            return false;
+        }
+        // Typecast object to Team
+        Team source = (Team)obj;
+        // toString this.chasers and source.chasers for readable comparison
+        String thisChasers = Arrays.toString(this.chasers);
+        String sourceChasers = Arrays.toString(source.chasers);
+        // Return comparison of fields
+        return  (this.house.equals(source.house)    &&
+                this.seeker.equals(source.seeker)   &&
+                this.keeper.equals(source.keeper)   &&
+                thisChasers.equals(sourceChasers)   );
+     }
+
+     
+    public int hashCode() {
+        return Objects.hash(house, keeper, seeker, Arrays.toString(chasers));
+    }
 }

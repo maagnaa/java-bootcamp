@@ -1444,3 +1444,163 @@ items.forEach((key,value) -> System.out.println(key+": "+value));
 >> Spaghetti Squash: 1.99
 ```
 
+Using streams to access the key-set of a HashMap
+```java
+items.keySet().stream().forEach(key -> System.out.println(key));
+```
+
+```
+>> Cauliflower
+>> Parsley
+>> Spaghetti Squash      
+```
+
+##### hashcode 
+For put() to correctly update a key-value pair when the key is an object, we need to make sure of two things:
+1. That the object provides an equals method that checks for equality of fields instead of reference.
+2. That the object provides a hashcode method that returns the same hashcode for objects with equal fields.
+
+By default, hashCode() assigns every object a different integer. This is illustrated by the example below.
+
+Given the following class Car:
+```java
+public class Car {
+    private String make;
+    private int year;
+
+    public Car(String make, int year) {
+        this.make = make;
+        this.year = year;
+    }
+    public Car(Car source) {
+        this.make = source.make;
+        this.year = source.year;
+    }
+
+    public String getMake() {
+        return make;
+    }
+    public int getYear() {
+        return year;
+    }
+    public void setMake(String make) {
+        this.make = make;
+    }
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(obj instanceof Car)) {
+            return false;
+        }
+        Car car = (Car) obj;
+        return this.make.equals(car.make) && this.year == car.year;
+    }
+}
+```
+
+And the following class Main:
+```java
+public class Main {
+    public static void main(String[] args) {
+        
+public class Main {
+    public static void main(String[] args) {
+        
+        Car nissan = new Car("Nissan",2016);
+        System.out.println(("Nissan Hashcode\t\t=>\t"+nissan.hashCode()));
+
+        Car toyota = new Car("Toyota",2016);
+        System.out.println(("Toyota Hashcode\t\t=>\t"+nissan.hashCode()));
+
+        Car nissan2 = new Car(nissan);                  
+        System.out.println(("Nissan2 Hashcode\t=>\t"+nissan2.hashCode()));
+
+    }
+}
+```
+```
+>> Nissan Hashcode         =>      971848845
+>> Toyota Hashcode         =>      104739310
+>> Nissan2 Hashcode        =>      104739310
+```
+
+We can see that the hashcode values assigned to nissan and nissan2 are different despite field equality.
+
+We must ensure that equal objects have the same hashCode in order to avoid bugs with hash-based collections like HashMap.
+
+We update our main method to contain a HashMap with the prices of the car. We do not create an entry for nissan2, since nissan and nissan2 are equal and therefore have the same price.
+```java
+import java.util.HashMap;
+public class Main {
+    public static void main(String[] args) {
+        
+        Car nissan = new Car("Nissan",2016);
+        Car toyota = new Car("Toyota",2016);
+        Car nissan2 = new Car(nissan);
+
+        HashMap<Car,Double> prices = new HashMap<Car,Double>();
+        prices.put(nissan, 10000.);
+        prices.put(toyota, 12000.);
+
+        System.out.println(prices.get(nissan2));
+    }
+}
+```
+The result before addressing the hashCode problem is:
+```
+>> null
+```
+In order to address the problem we must create a new hashCode() method inside the Car class.
+```java
+import java.util.Objects;
+```
+```java
+    // New hashCode() method
+    public int hashCode(){
+        return Objects.hash(make, year);
+    }
+```
+
+Inside our new hashCode() method we use **Objects.hash()**, a method returns a hashcode based on the fields that it receives, and assigns equal hashcodes to objects with equal fields.
+
+After adding this method to Car class, we update Main:
+```java
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Car nissan = new Car("Nissan",2016);
+        System.out.println(("Nissan Hashcode\t\t=>\t"+nissan.hashCode()));
+
+        Car toyota = new Car("Toyota",2016);
+        System.out.println(("Toyota Hashcode\t\t=>\t"+toyota.hashCode()));
+
+        Car nissan2 = new Car(nissan);
+        System.out.println(("Nissan2 Hashcode\t=>\t"+nissan2.hashCode()));
+
+        HashMap<Car,Double> prices = new HashMap<Car,Double>();
+        prices.put(nissan, 10000.);
+        prices.put(toyota, 12000.);
+
+        System.out.println(prices.get(nissan2));
+    }
+}
+```
+
+And the result is now:
+```
+Nissan Hashcode         =>      -673365575
+Toyota Hashcode         =>      533903939
+Nissan2 Hashcode        =>      -673365575
+10000.0
+```
+We see that nissan and nissan2 have the same hashcode now, and that we can access the entry in the prices HashMap using nissan2 as the key value. 
+

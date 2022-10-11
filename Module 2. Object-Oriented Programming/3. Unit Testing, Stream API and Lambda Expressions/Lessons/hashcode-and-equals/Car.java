@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Car {
     private String make;
     private int year;
@@ -41,4 +43,7 @@ public class Car {
         return this.make.equals(car.make) && this.year == car.year;
     }
 
+    public int hashCode(){
+        return Objects.hash(make, year);
+    }
 }
