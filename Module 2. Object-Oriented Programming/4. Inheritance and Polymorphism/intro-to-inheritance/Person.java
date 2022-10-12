@@ -16,34 +16,47 @@ public class Person {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public int getAge(){
-        return age;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Person)) {
+            return false;
+        }
+        Person person = (Person) o;
+        return Objects.equals(name, person.name) && age == person.age;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj == null){
-            return false;
-        }
-        if(!(obj instanceof Person)){
-            return false;
-        }
-
-        Person person = (Person)obj;
-        return ((this.name.equals(person.getName())) && (this.age == person.getAge()));
-    }
-
-    @Override
-    public int hashCode(){
-        return Objects.hash(name,age);
+    public int hashCode() {
+        return Objects.hash(name, age);
     }
 
 
     @Override
     public String toString() {
-        return ("age: "+this.age+" name: "+this.name);
+        return "{" +
+            " name='" + getName() + "'" +
+            ", age='" + getAge() + "'" +
+            "}";
     }
+
+
 }
