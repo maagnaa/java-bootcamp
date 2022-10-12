@@ -51,7 +51,7 @@ Notes and summary of key learnings and takeaways is found below the content over
     - [x] 2 Workboks
     - [x] Summary Assignment
     - Completed 11/10/22
-4. Inheritance and Polymorphism
+4. [Inheritance and Polymorphism](https://github.com/maagnaa/java-bootcamp#24-inheritance-and-polymorphism)
     - [ ] Summary Assignment
 5. Capstone Project 
     - [ ] Module Summary Assignment
@@ -1608,4 +1608,27 @@ We see that nissan and nissan2 have the same hashcode now, and that we can acces
 
 ## 2.4 Inheritance and Polymorphism
 
-Every class in Java has a common ancestor: the object class.
+### Inheritance
+Inheritance allows for one class (*a child class*) to inherit the fields and properties of another class (*the parent class*).
+Every class in Java has a common ancestor: the object class. Every class inherits methods from this class.
+
+A class can override methods that it inherits. We have done this before when overriding methods such as .equals() and .hashCode().
+
+When definig a child class in Java, we use the keyword **extends** to inherit from a parent class.
+
+Types of Inheritance
+1. Single inheritance
+2. Multi-level inheritance
+3. Multiple inheritance
+4. Hybrid inheritance
+5. Hierarchical inheritance
+
+### Polymorphism
+
+Polymorphism allows a child class to share the information and behavior of its parent class while also incorporating its own functionality. 
+
+>Polymorphism is that in which we can perform a task in multiple forms or ways. It is applied to the functions or methods. Polymorphism allows the object to decide which form of the function to implement at compile-time as well as run-time.
+
+Types of Polymorphism
+1. Compile-time polymorphism (Method overloading)
+2. Run-time polymorphism (Method Overriding)
