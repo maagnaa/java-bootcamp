@@ -1616,6 +1616,231 @@ A class can override methods that it inherits. We have done this before when ove
 
 When definig a child class in Java, we use the keyword **extends** to inherit from a parent class.
 
+When two classes share common fields:
+- never define the same fields in each class
+- each class should instead inherit from a common parent class
+
+For example, given two classes with the following field requirements:
+1. Class : Pants 
+    - Fields: int waist, double price, String color, String brand
+2. Class : Shirt 
+    - Fields: String size, double price, String color, String brand
+
+We can see that both classes share the following fields: price, color and brand. Therefore, they should be childs of a common parent that defines these fields, rather than duplicating them in each file.
+
+```java
+package models;
+
+// Parent class for Shirt and Pants
+public abstract class Product {
+    private double price;
+    private String color;
+    private String brand;
+
+
+    public Product(double price, String color, String brand) {
+        this.price = price;
+        this.color = color;
+        this.brand = brand;
+    }
+
+    public Product(Product source){
+        this.price = source.price;
+        this.color = source.color;
+        this.brand = source.brand;        
+    }
+    
+    public double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getColor() {
+        return this.color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getBrand() {
+        return this.brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+    
+    @Override
+    public String toString() {
+        return  " price='" + getPrice() + "'" +
+                ", color='" + getColor() + "'" +
+                ", brand='" + getBrand() + "'" ;
+    }
+}
+```
+
+```java
+package models;
+
+public class Shirt extends Product {
+    private String size;
+
+
+    public Shirt(String size, double price, String color, String brand) {
+        super(price, color, brand);
+        this.size = size;
+    }
+    
+    public Shirt(Shirt source){
+        super(source);
+        this.size = source.size;
+    }
+
+    public String getSize() {
+        return this.size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Shirt)) {
+            return false;
+        }
+        Shirt shirt = (Shirt) o;
+        return size.equals(shirt.size) 
+            && super.getPrice() == shirt.getPrice()
+            && super.getColor().equals(shirt.getColor())
+            && super.getBrand().equals(shirt.getBrand());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(size, super.getPrice(), super.getColor(), super.getBrand());
+    }
+
+     @Override
+    public String toString() {
+        return "{" +
+            " size='" + getSize() + "'" 
+            + super.toString() +
+            "}";
+    }
+}
+```
+```java
+package models;
+
+public class Pants extends Product {
+    private int waist;
+
+    public Pants(int waist, double price, String color, String brand) {
+        super(price, color, brand);
+        this.waist = waist;
+    }
+    
+    public Pants(Pants source){
+        super(source);
+        this.waist = source.waist;
+    }
+    
+    public int getWaist() {
+        return this.waist;
+    }
+
+    public void setWaist(int waist) {
+        this.waist = waist;
+    }
+
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Pants)) {
+            return false;
+        }
+        Pants pants = (Pants) o;
+
+        return waist == pants.waist 
+            && super.getPrice() == pants.getPrice()
+            && super.getColor().equals(pants.getColor())
+            && super.getBrand().equals(pants.getBrand());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(waist, super.getPrice(), super.getColor(), super.getBrand());
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " waist='" + getWaist() + "'" 
+            + super.toString() +
+            "}";
+    }
+
+}
+```
+Notice that the constructors for both Shirt and Pants call a method: super().
+- *super* refers to the superclass, which is another term for parent class.
+- *super()* refers to the constructor of the superclass. 
+
+In other words, when the constructors of the child classes call super(), they are calling the constructor of the parent class to update the inherited fields. 
+
+Now we can create new objects of the Shirt and Pants classes, and use methods they inherit from their parent class. Since we have written adequate overrides for equals() hashCode() and toString(), we can also compare the objects and print them to terminal.
+```java
+import models.*;
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Shirt shirt1 = new Shirt("SMALL",15.99,"BLUE","JAVA VUITTON");
+        Shirt shirt2 = new Shirt(shirt1);
+
+        Pants pants1 = new Pants(32, 24.99, "BLUE", "JAVA KLEIN");
+        Pants pants2 = new Pants(pants1);
+
+        // Use methods inherited from parent class
+        shirt1.getPrice();
+        pants1.setPrice(59.99);
+
+        System.out.println("shirt1 = "+shirt1.toString());
+        System.out.println("shirt2 = "+shirt2.toString());
+
+        System.out.println("pants1 = "+pants1.toString());
+        System.out.println("pants2 = "+pants2.toString());
+
+        System.out.println("Shirt1 == Shirt2 ? -> " + shirt1.equals(shirt2));  
+        System.out.println("Pants1 == Pants2 ? -> "+ pants1.equals(pants2));   
+
+    }
+}
+```
+Output:
+```
+>> shirt1 = { size='SMALL', price='15.99', color='BLUE', brand='JAVA VUITTON'}
+>> shirt2 = { size='SMALL', price='15.99', color='BLUE', brand='JAVA VUITTON'}
+>> pants1 = { waist='32', price='59.99', color='BLUE', brand='JAVA KLEIN'}
+>> pants2 = { waist='32', price='24.99', color='BLUE', brand='JAVA KLEIN'}
+>> Shirt1 == Shirt2 ? -> true
+>> Pants1 == Pants2 ? -> false
+```
+
+
+Notice that we created Product as an **abstract class**. This is because want to forbid the caller from creating an object of the Product class. A Product must either be a Shirt, or a pair of Pants, in the context of this example. Classes whose only purpose is inheritance should be defined as abstract.
+A class which we can use to create objects is called a **concrete class**. Shirt and Pants are concrete classes.
+
+
 Types of Inheritance
 1. Single inheritance
 2. Multi-level inheritance
@@ -1627,8 +1852,26 @@ Types of Inheritance
 
 Polymorphism allows a child class to share the information and behavior of its parent class while also incorporating its own functionality. 
 
+A simple example of polymorphism: 
+Assuming that the Products, Shirt and Pants classes are the same as outlined under *inheritace*, we can:
+```java
+import models.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Product[] products = new Product[]{
+            new Shirt("SMALL",15.99,"BLUE","JAVA VUITTON"),
+            new Pants(32, 24.99, "BLUE", "JAVA KLEIN")
+        };
+    }
+}
+```
+Both the Shirt object and the Pants object are taking the form of a Product object, which allows us to store them together in an array of Product.
+
 >Polymorphism is that in which we can perform a task in multiple forms or ways. It is applied to the functions or methods. Polymorphism allows the object to decide which form of the function to implement at compile-time as well as run-time.
 
 Types of Polymorphism
 1. Compile-time polymorphism (Method overloading)
 2. Run-time polymorphism (Method Overriding)
+
