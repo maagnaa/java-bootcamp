@@ -2024,3 +2024,60 @@ The output is:
 >> SHIRT           SMALL           24.79           Red             NIKE
 >> SHIRT           SMALL           24.89           Orange          GEORGE
 ```
+
+#### The List Interface
+
+ArrayList, LinkedList, etc ... all implement the List Interface. The List Interface requires classes which implement it to override, for example, the following methods:
+```java
+// Consider this as a simplified excerpt of the List IF
+public interface List<E> extends Collection<E> {
+    int size();
+    boolean isEmpty();
+    boolean contains(Object o);
+    boolean add(E e);
+    boolean remove(E e);
+    boolean equals(Object o);
+    int hashCode();
+    /* ... */
+}
+```
+
+LinkedList is almost always worse than ArrayList performance-wise. ArrayList is usually faster than LinkedList because it has direct refences to every element, whereas a LinkedList has to go through every single element until it reaches the element we are trying to access.
+
+ArrayList and LinkedList can be declared as Lists, thus they exhibit polymorphism. 
+
+Consider the following declarations:
+```java
+ArrayList<Integer> list = new ArrayList<Integer>();
+LinkedList<Integer> list2 = new LinkedList<Integer>();
+```
+We may instead:
+```java
+List<Integer> list = new ArrayList<Integer>();                  
+List<Integer> list2 = new LinkedList<Integer>();      
+```
+
+####  The Map Interface
+HashMap, LinkedHashMap etc.. implement the Map Interface. The Map Interface requires classes which implement it to override, for example, the following methods:
+```java
+// Consider this as a simplified excerpt of the Map IF
+public interface Map<K,V> {
+    int size();
+    boolean isEmpty();
+    boolean containsKey(Object key);
+    boolean containsValue(Object value);
+    V get(Object key);
+    V put(K key, V value);
+    V remove(Object key);
+    Set<K> keySet();
+    Collection<V> values();
+    /* ... */
+}
+```
+**HashMap vs. TreeMap vs. LinkedHashMap**
+
+- **HashMap:** Unordered entries.
+- **TreeMap:** Entries ordered based on what you specify.
+- **LinkedHashMap:** Entries ordered based on insertion.
+
+In general, favor HashMap because it offers the best performance. Use TreeMap or LinkedHashMap in the unique event that entries must be sorted.
