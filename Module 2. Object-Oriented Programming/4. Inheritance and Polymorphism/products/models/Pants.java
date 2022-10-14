@@ -3,7 +3,7 @@ package models;
 import java.util.Objects;
 
 
-public class Pants extends Product implements Discountable {
+public class Pants extends Product implements Discountable{
     private int waist;
 
     public Pants(int waist, double price, String color, String brand) {
@@ -25,6 +25,7 @@ public class Pants extends Product implements Discountable {
         this.waist = waist;
     }
 
+    @Override
     public void discount(){
         super.setPrice(super.getPrice() * 0.5);
     }
@@ -57,12 +58,14 @@ public class Pants extends Product implements Discountable {
     }
 
 
+
     @Override
     public String toString() {
-        return "{" +
-            " waist='" + getWaist() + "'," 
-            + super.toString() +
-            "}";
+        return "PANTS\t" +
+            " \t" + getWaist()         + "\t" +
+            " \t" + super.getPrice()   + "\t" +
+            " \t" + super.getColor()   + "\t" +
+            " \t" + super.getBrand()   + " " ;
     }
 
 

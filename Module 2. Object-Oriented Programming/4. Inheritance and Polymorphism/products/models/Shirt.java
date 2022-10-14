@@ -57,13 +57,13 @@ public class Shirt extends Product {
         return Objects.hash(size, super.getPrice(), super.getColor(), super.getBrand());
     }
 
-
     @Override
     public String toString() {
-        return "{" +
-            " size='" + getSize() + "'," 
-            + super.toString() +
-            "}";
+        return "SHIRT\t" +
+            " \t" + getSize() + "\t" +
+            " \t" + super.getPrice() + "\t" +
+            " \t" + super.getColor() + "\t" +
+            " \t" + super.getBrand() + " " ;
     }
 
 

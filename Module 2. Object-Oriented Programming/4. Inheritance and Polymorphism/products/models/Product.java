@@ -1,7 +1,7 @@
 package models;
 
 // Parent class for Shirt and Pants
-public abstract class Product {
+public abstract class Product implements Comparable<Product>{
     private double price;
     private String color;
     private String brand;
@@ -47,10 +47,26 @@ public abstract class Product {
     public abstract void fold();
 
     @Override
-    public String toString() {
-        return  " price='" + getPrice() + "'" +
-                ", color='" + getColor() + "'" +
-                ", brand='" + getBrand() + "'" ;
+    /* Task: sort the products in alphabetical order, based on their class type, then sort the rest by price.
+     *
+     * Returns "a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object."
+     * Meaning : 
+     *      - if it returns a negative integer - the object is less than
+     *      - if it returns zero - the object is equal
+     *      - if it returns a positive integer - the objects is greater
+     */
+   
+    public int compareTo(Product specifiedObject) {
+        String className = this.getClass().getSimpleName();
+        String sClassName = specifiedObject.getClass().getSimpleName();
+        Double price = this.getPrice();
+        Double sPrice = specifiedObject.getPrice();
+
+        if(!(className.equals(sClassName))){
+            return className.compareTo(sClassName);
+        }
+
+        return price.compareTo(sPrice);
     }
 
 

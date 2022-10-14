@@ -1674,12 +1674,6 @@ public abstract class Product {
         this.brand = brand;
     }
     
-    @Override
-    public String toString() {
-        return  " price='" + getPrice() + "'" +
-                ", color='" + getColor() + "'" +
-                ", brand='" + getBrand() + "'" ;
-    }
 }
 ```
 
@@ -1687,8 +1681,9 @@ public abstract class Product {
 package models;
 
 public class Shirt extends Product {
-    private String size;
-
+    public enum Size {
+        SMALL, MEDIUM, LARGE
+    }
 
     public Shirt(String size, double price, String color, String brand) {
         super(price, color, brand);
@@ -1727,13 +1722,15 @@ public class Shirt extends Product {
         return Objects.hash(size, super.getPrice(), super.getColor(), super.getBrand());
     }
 
-     @Override
+    @Override
     public String toString() {
-        return "{" +
-            " size='" + getSize() + "'" 
-            + super.toString() +
-            "}";
+        return "SHIRT\t" +
+            " \t" + getSize() + "\t" +
+            " \t" + super.getPrice() + "\t" +
+            " \t" + super.getColor() + "\t" +
+            " \t" + super.getBrand() + " " ;
     }
+
 }
 ```
 ```java
@@ -1783,10 +1780,11 @@ public class Pants extends Product {
 
     @Override
     public String toString() {
-        return "{" +
-            " waist='" + getWaist() + "'" 
-            + super.toString() +
-            "}";
+        return "PANTS\t" +
+            " \t" + getWaist()         + "\t" +
+            " \t" + super.getPrice()   + "\t" +
+            " \t" + super.getColor()   + "\t" +
+            " \t" + super.getBrand()   + " " ;
     }
 
 }
@@ -1804,7 +1802,7 @@ import models.*;
 public class Main {
     public static void main(String[] args) {
         
-        Shirt shirt1 = new Shirt("SMALL",15.99,"BLUE","JAVA VUITTON");
+        Shirt shirt1 = new Shirt(Shirt.Size.SMALL,15.99,"BLUE","JAVA VUITTON");
         Shirt shirt2 = new Shirt(shirt1);
 
         Pants pants1 = new Pants(32, 24.99, "BLUE", "JAVA KLEIN");
@@ -1814,11 +1812,11 @@ public class Main {
         shirt1.getPrice();
         pants1.setPrice(59.99);
 
-        System.out.println("shirt1 = "+shirt1.toString());
-        System.out.println("shirt2 = "+shirt2.toString());
+        System.out.println("shirt1 =>>\t"+shirt1.toString());
+        System.out.println("shirt2 =>>\t"+shirt2.toString());
 
-        System.out.println("pants1 = "+pants1.toString());
-        System.out.println("pants2 = "+pants2.toString());
+        System.out.println("pants1 =>>\t"+pants1.toString());
+        System.out.println("pants2 =>>\t"+pants2.toString());
 
         System.out.println("Shirt1 == Shirt2 ? -> " + shirt1.equals(shirt2));  
         System.out.println("Pants1 == Pants2 ? -> "+ pants1.equals(pants2));   
@@ -1828,12 +1826,12 @@ public class Main {
 ```
 Output:
 ```
->> shirt1 = { size='SMALL', price='15.99', color='BLUE', brand='JAVA VUITTON'}
->> shirt2 = { size='SMALL', price='15.99', color='BLUE', brand='JAVA VUITTON'}
->> pants1 = { waist='32', price='59.99', color='BLUE', brand='JAVA KLEIN'}
->> pants2 = { waist='32', price='24.99', color='BLUE', brand='JAVA KLEIN'}
->> Shirt1 == Shirt2 ? -> true
->> Pants1 == Pants2 ? -> false
+shirt1 =>>      SHIRT           SMALL           15.99           BLUE            JAVA VUITTON 
+shirt2 =>>      SHIRT           SMALL           15.99           BLUE            JAVA VUITTON
+pants1 =>>      PANTS           32              59.99           BLUE            JAVA KLEIN
+pants2 =>>      PANTS           32              24.99           BLUE            JAVA KLEIN
+Shirt1 == Shirt2 ? -> true
+Pants1 == Pants2 ? -> false
 ```
 
 
@@ -1863,7 +1861,7 @@ public class Main {
     public static void main(String[] args) {
 
         Product[] products = new Product[]{
-            new Shirt("SMALL",15.99,"BLUE","JAVA VUITTON"),
+            new Shirt(Shirt.Size.SMALL,15.99,"BLUE","JAVA VUITTON"),
             new Pants(32, 24.99, "BLUE", "JAVA KLEIN")
         };
     }
@@ -1896,8 +1894,9 @@ public interface Discountable {
 package models;
 
 public class Pants extends Product implements Discountable {
-    /* ... */
+    /* ... Pants methods ... */
 
+    @Override
     public void discount(){
         super.setPrice(super.getPrice() * 0.5);
     }
@@ -1909,3 +1908,119 @@ Interfaces allow for polymorphism. Since objects of type Pants are Discountable,
 Discountable pants = new Pants(32, 24.99, "BLUE", "JAVA KLEIN");
 ```
 
+#### Sorting Objects: The Comparable Interface
+
+[Documentation for Comparable IF](https://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html#compareTo(T))
+
+```java
+public abstract class Product implements Comparable<Product>{
+    /* ... Product methods ... */
+    
+    @Override
+    /* Returns "a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object"
+     * Meaning : 
+     *      - if we return a negative integer  -> the object is less than
+     *      - if we return zero                -> the object is equal to
+     *      - if we return a positive integer  -> the objects is greater than
+     */
+    public int compareTo(Product specifiedObject) {
+        // Implementation that defines how we compare objects which implement Comparable 
+    }
+}
+```
+
+###### Sorting Alphabetically
+String implements Comparable, and has an override for compareTo(). The compareTo() method for String objects returns:
+1. A negative int when the characters in the first String have a lower unicode value than those of the second String.
+2. Zero if the Strings are identical.
+3. A positive int when the characters in the first String have a higher unicode value than those of the second String.
+
+
+##### Example
+
+We create the following compareTo() method for Product.
+
+```java
+    @Override
+    // Task: sort the products in alphabetical order, based on their class type, then sort the rest by price.
+    public int compareTo(Product specifiedObject) {
+        String className = this.getClass().getSimpleName();
+        String sClassName = specifiedObject.getClass().getSimpleName();
+        Double price = this.getPrice();
+        Double sPrice = specifiedObject.getPrice();
+
+        if(!(className.equals(sClassName))){            // If the class name of the current object is not equal to the specified object
+            return className.compareTo(sClassName);     // We return a value based on the class name comparison
+        }
+
+        return price.compareTo(sPrice);                 // When the class name of the compared objects is equal
+    }                                                   // We return a value based on the price comparison
+```
+Then with the following Main class:
+```java
+import models.*;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        Product[] products = new Product[] {
+            new Pants(32, 24.99, "Blue", "JAVA KLEIN"),
+            new Shirt(Shirt.Size.MEDIUM, 22.99, "Black", "CHANEL"),
+            new Pants(34, 104.99, "Red", "JANGLER"),
+            new Shirt(Shirt.Size.SMALL, 13.99, "Orange", "GEORGE"),
+            new Pants(30, 119.99, "Grey", "FENDI"),
+            new Shirt(Shirt.Size.LARGE, 34.99, "Blue", "ECKO"),
+            new Pants(30, 129.99, "Red", "VERSACE"),
+            new Shirt(Shirt.Size.SMALL, 22.99, "Beige", "ZARA"),
+            new Pants(29, 99.99, "Dark", "JANGLER"),
+            new Shirt(Shirt.Size.SMALL, 19.99, "Red", "NIKE"),
+            new Pants(26, 24.99, "Indigo", "BELSTAFF"),
+            new Shirt(Shirt.Size.LARGE, 29.99, "Blue", "ADIDAS"),
+            new Pants(34, 104.99, "Red", "JANGLER"),
+        };
+        
+        System.out.println("Before Sort \n");
+        printArray(products);
+
+        Arrays.sort(products);
+
+        System.out.println("\n\nAfter Sort \n");
+        printArray(products);
+    }
+```
+The output is:
+
+```
+>> Before Sort 
+>> 
+>> PANTS           32              24.59           Blue            JAVA KLEIN 
+>> SHIRT           MEDIUM          24.29           Black           CHANEL
+>> PANTS           34              24.53           Red             JANGLER
+>> SHIRT           SMALL           24.89           Orange          GEORGE
+>> PANTS           30              24.54           Grey            FENDI
+>> SHIRT           LARGE           24.49           Blue            ECKO
+>> PANTS           30              24.51           Red             VERSACE
+>> SHIRT           SMALL           24.49           Beige           ZARA
+>> PANTS           29              24.53           Dark            JANGLER
+>> SHIRT           SMALL           24.79           Red             NIKE
+>> PANTS           26              24.58           Indigo          BELSTAFF
+>> SHIRT           LARGE           24.54           Blue            ADIDAS
+>> PANTS           34              24.5            Red             JANGLER
+>> 
+>> 
+>> After Sort
+>> 
+>> PANTS           34              24.5            Red             JANGLER
+>> PANTS           30              24.51           Red             VERSACE
+>> PANTS           34              24.53           Red             JANGLER
+>> PANTS           29              24.53           Dark            JANGLER
+>> PANTS           30              24.54           Grey            FENDI
+>> PANTS           26              24.58           Indigo          BELSTAFF
+>> PANTS           32              24.59           Blue            JAVA KLEIN
+>> SHIRT           MEDIUM          24.29           Black           CHANEL
+>> SHIRT           LARGE           24.49           Blue            ECKO
+>> SHIRT           SMALL           24.49           Beige           ZARA
+>> SHIRT           LARGE           24.54           Blue            ADIDAS
+>> SHIRT           SMALL           24.79           Red             NIKE
+>> SHIRT           SMALL           24.89           Orange          GEORGE
+```
