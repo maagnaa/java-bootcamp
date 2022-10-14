@@ -1840,6 +1840,8 @@ Output:
 Notice that we created Product as an **abstract class**. This is because want to forbid the caller from creating an object of the Product class. A Product must either be a Shirt, or a pair of Pants, in the context of this example. Classes whose only purpose is inheritance should be defined as abstract.
 A class which we can use to create objects is called a **concrete class**. Shirt and Pants are concrete classes.
 
+We can also create **abstract methods** inside a parent class if we want to force the children to create an override for the method. Abstract methods do not have a body, since they are not concrete.
+
 
 Types of Inheritance
 1. Single inheritance
@@ -1874,4 +1876,36 @@ Both the Shirt object and the Pants object are taking the form of a Product obje
 Types of Polymorphism
 1. Compile-time polymorphism (Method overloading)
 2. Run-time polymorphism (Method Overriding)
+
+
+#### Interface
+
+Interfaces are used to define methods required from a class. If a class implements an interface, it must override every method inside the interface.
+
+Example.
+
+```java
+package models;
+
+public interface Discountable {
+    public void discount();         // Products which are discountable must implement a discount() method.
+}
+```
+
+```java
+package models;
+
+public class Pants extends Product implements Discountable {
+    /* ... */
+
+    public void discount(){
+        super.setPrice(super.getPrice() * 0.5);
+    }
+}
+```
+
+Interfaces allow for polymorphism. Since objects of type Pants are Discountable, we can now declare Pants as: 
+```java
+Discountable pants = new Pants(32, 24.99, "BLUE", "JAVA KLEIN");
+```
 
