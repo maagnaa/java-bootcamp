@@ -1,6 +1,8 @@
 package src.main.model.account;
 
-public class Account {
+import java.text.DecimalFormat;
+
+public abstract class Account {
     private String id;
     private String name;
     private double balance;
@@ -45,6 +47,15 @@ public class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public abstract boolean withdraw(double amount);
+    public abstract void deposit(double amount);
+
+
+    protected double round(double amount) {
+        DecimalFormat formatter = new DecimalFormat("#.##");
+        return Double.parseDouble(formatter.format(amount));
     }
 
     public void checkNullOrEmpty(String string) throws IllegalArgumentException {

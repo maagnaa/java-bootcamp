@@ -9,4 +9,16 @@ public class Savings extends Account {
     public Savings(Savings source) {
         super(source.getId(),source.getName(),source.getBalance());
     }
+
+    @Override
+    public void deposit(double amount) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public boolean withdraw(double amount) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
