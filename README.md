@@ -52,7 +52,8 @@ Notes and summary of key learnings and takeaways is found below the content over
     - [x] Summary Assignment
     - Completed 11/10/22
 4. [Inheritance and Polymorphism](https://github.com/maagnaa/java-bootcamp#24-inheritance-and-polymorphism)
-    - [ ] Summary Assignment
+    - [x] Summary Assignment
+    - Completed 15/10/22  \\(ᵔᵕᵔ)/
 5. Capstone Project 
     - [ ] Module Summary Assignment
 

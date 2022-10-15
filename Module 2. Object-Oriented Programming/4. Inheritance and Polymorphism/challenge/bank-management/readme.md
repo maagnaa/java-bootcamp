@@ -366,6 +366,7 @@ String accountId = ((Chequing)account).getId();
 Taxable, as an interface, is not really a class. Therefore, in order to be able to call any methods from account we must typecast to an object of a class which implements the taxable interface. 
 
 **Treating Array as stream**
+
 Notice how we do not treat the transactions array as a stream like this:
 ```java
 transactions.stream()
@@ -381,6 +382,7 @@ import java.util.Arrays;
 This class provides array utility.
 
 **Intermediate Operation**
+
 The intermediate operation in this pipeline is .mapToDouble().
 The lambda expression of this operation needs to return a Double value for each element in the transactions array.
 
@@ -390,6 +392,7 @@ However, the value should be negative for withdrawal transactions.
 We discriminate whether the value returned should be a negative Double or a positive Double by checking the transaction type with transaction.getType.
 
 **Terminal Operation**
+
 The terminal operation in this pipeline is .sum().
 
 The terminal operation receives a Double value for each transaction in the transactions array.
@@ -397,7 +400,106 @@ The terminal operation receives a Double value for each transaction in the trans
 The values received are summed and a double is returned.
 
 **Checking if an object implements the Taxable interface**
+
 Syntax:
 ```java
 Taxable.class.isAssignableFrom(account.getClass())
 ```
+
+**Deducting Taxes with streams**
+```java
+    public void deductTaxes(){
+        accounts.stream()
+            .filter(account ->  Taxable.class.isAssignableFrom(account.getClass())) // find taxable accounts
+            .forEach(account -> {
+                Taxable taxable = (Taxable) account;        // Typecast to Taxable
+                double income = getIncome(taxable);         // Get the income of the account
+
+                if( income > TAXFREE_INCOME_TRESHOLD){      // If income exceeds threshold
+                    taxable.tax(income);                    // Apply tax
+                }
+            });
+    }
+```
+
+## Part 8 - Setting up the Main app
+
+1. Inside Main, create a new Bank object.
+2. Define a methods according to the following specs:
+```java
+    /**
+     * Name: createObject
+     * @param values (String[] values)
+     * @return Account
+     * 
+     * Inside the function:
+     *   1. Dynamically creates a Chequing, Loan, or Savings object based on the values array. 
+     */
+```
+A values parameter would have 4 elements. Eg.
+```
+{"Chequing","f84c43f4-a634-4c57-a644-7602f8840870","Michael Scott","1524.51"};
+```
+
+```java
+    /**
+     * Name: returnAccounts()
+     * @return ArrayList<Account>
+     * @throws FileNotFoundException
+     * 
+     * Inside the function:
+     *    1. Creates a Scanner object and reads the data from accounts.txt.
+     *    2. Creates an Account object for every line in accounts.txt.
+     *    3. Returns an ArrayList of Account objects.
+     */
+```
+
+```java
+    /**
+     * Name: loadAccounts
+     * @param accounts (ArrayList<Account>)
+     * 
+     * Inside the function:
+     *   1. Loads every account into the Bank object.
+     *  
+     */
+```
+
+```java
+    /**
+     * Name: returnTransactions()
+     * @return ArrayList<Transaction>
+     * @throws FileNotFoundException
+     * 
+     * Inside the function:
+     *    1. Creates a Scanner object and reads the data from transactions.txt.
+     *    2. Populates an ArrayList with transaction objects.
+     *    3. Sorts the ArrayList.
+     */
+```
+
+```java
+/**
+     * Name: runTransactions
+     * @param transactions ArrayList<Transaction>
+     * 
+     * Inside the function:
+     *  1. Executes every transaction using bank.execute.
+     */
+```
+
+```java
+ /**
+     * Name: transactionHistory
+     * @param id (String)
+     * 
+     * Prints the transaction history of an account.
+     * Inside the function
+     *   1. Print: \t\t\t\t   TRANSACTION HISTORY\n\t
+     *   2. Print every transaction that corresponds to the id. (Waits 300 milliseconds before printing the next one)
+     *             - Use this format "\t"+transaction+"\n"
+     *   3. Print: \n\t\t\t\t\tAFTER TAX\n
+     *   4. Print: "\t" + account that corresponds to id +"\n\n\n\n"
+     */
+```
+3. Finalize the main() method.

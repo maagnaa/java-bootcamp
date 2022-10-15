@@ -111,10 +111,12 @@ public class Transaction implements Comparable<Transaction> {
 
     @Override
     public String toString() {
-        return  getType()       + "\t" +
+        return  String.format("%1$10s", getType()) +
         "\t"  + getTimestamp()  + "  " +
         "\t"  + getId()         + "  " +
         "\t$" + getAmount()     + "  " ;
     }
 
 }
+
+
