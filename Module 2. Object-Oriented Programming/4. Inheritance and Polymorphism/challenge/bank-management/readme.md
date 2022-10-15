@@ -222,3 +222,70 @@ public String getReadableDate() {
     - Formatting -> Date to String conversion.
     - Parsing -> String to Date conversion.
 
+## Part 6
+
+The goal of part 6 is to create the Bank class.
+
+
+Bank Class Tasks:
+1. Create a Bank class with fields:
+    - ArrayList<Account> accounts;
+    - ArrayList<Transaction> transactions;
+2. Add a constructor that receives no parameters and initializes each ArrayList.
+3. Define an addAccount method that adds an account to the accounts ArrayList.
+
+Account Class & Children Tasks:
+1. Create an abstract method called clone().
+2. Override clone() for all children of Account.
+
+Main Tasks:
+1. Test clone method. 
+
+### Notes
+
+The purpose creating the abstract method clone() is to circumvent the fact that, because Account is abstract, we cannot create new Account copies inside Bank->addAccount(). Thus we use the clone() method instead.
+
+```java
+public abstract class Account {
+    /* ... */
+    public abstract Account clone();
+    /* ... */
+}
+```
+```java
+public class Chequing extends Account implements Taxable{ 
+    /* ... */
+    @Override
+    public Account clone() {
+        return new Chequing(this);
+    }
+    /* ... */
+}
+```
+```java
+public class Savings extends Account {
+    /* ... */
+    @Override
+    public Account clone() {
+        return new Savings(this);
+    }
+    /* ... */
+}
+```
+```java
+public class Loan extends Account {
+    /* ... */
+    @Override
+    public Account clone() {
+        return new Loan(this);
+    }
+    /* ... */
+}
+```
+
+Then we can, from the Bank class, comfortably: 
+```java
+public void addAccount(Account account){
+    this.accounts.add(account.clone());    
+}
+```

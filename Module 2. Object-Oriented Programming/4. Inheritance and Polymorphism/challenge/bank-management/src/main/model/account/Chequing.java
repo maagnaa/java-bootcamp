@@ -18,6 +18,11 @@ public class Chequing extends Account implements Taxable{
     }
 
     @Override
+    public Account clone() {
+        return new Chequing(this);
+    }
+
+    @Override
     public double tax(double income) {
         return round(income*INCOME_TAX_RATE);        
     }

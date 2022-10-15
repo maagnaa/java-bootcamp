@@ -13,6 +13,10 @@ public class Loan extends Account {
     }
 
     @Override
+    public Account clone() {
+        return new Loan(this);
+    }
+    @Override
     protected double round(double amount) {
         return super.round(amount);
     }

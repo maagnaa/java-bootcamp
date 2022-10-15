@@ -50,6 +50,7 @@ public abstract class Account {
 
     public abstract boolean withdraw(double amount);
     public abstract void deposit(double amount);
+    public abstract Account clone();
 
 
     protected double round(double amount) {

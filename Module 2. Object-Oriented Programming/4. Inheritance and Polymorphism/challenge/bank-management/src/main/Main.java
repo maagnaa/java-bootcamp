@@ -14,10 +14,17 @@ public class Main {
         Savings savings = new Savings("ce07d7b3-9038-43db-83ae-77fd9c0450c9", "Saul Goodman", 2241.60);
         Loan loan = new Loan("4991bf71-ae8f-4df9-81c1-9c79cff280a5", "Phoebe Buffay", 2537.31);
 
-        System.out.println("Test: toString \n\n"
+        System.out.println("\nTest: toString \n\n"
                     + chequing.toString() + "\n"
                     + savings.toString()  + "\n"
-                    + loan.toString());
+                    + loan.toString()+"\n\n");
+
+        Account chequingCopy = chequing.clone();          
+        Account savingsCopy = savings.clone();
+
+        System.out.println("Test: clone \n\n"
+                    + chequingCopy.toString() + "\n"
+                    + savingsCopy.toString());
     }
 
     /**
