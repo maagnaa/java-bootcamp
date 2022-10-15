@@ -38,7 +38,7 @@ Additionally, unit tests are required even though not specified in the [requirem
 
 <hr>
 
-## Part 1
+## Part 1 - Requirement Analysis
 
 #### Task 1
 >Based on the requirements, identify:
@@ -71,7 +71,7 @@ The abstract class will define the following methods for the children to overrid
 
 There will be an interface, Taxable, for accounts which are taxable. Chequing will implement Taxable.
 
-## Part 2
+## Part 2 - Parent Class: Account
 
 The goal of Part 2 is to create the parent class: [Account](src/main/model/account/Account.java).
 
@@ -90,7 +90,7 @@ The format given for the desired toString is:
                                 "\t" + name + "" +
                                 "\t$" + balance + "";
 ```
-
+### Notes
 In order to print the className of the current object we can:
 ```java
 this.getClass().getSimpleName()
@@ -98,7 +98,7 @@ this.getClass().getSimpleName()
 
 Part 2 is finished by creating some Account objects in main and printing them to terminal.
 
-## Part 3
+## Part 3 - Children override methods + Unit Tests
 
 - Define abstract methods inside the parent class for the common methods: withdraw and deposit.
 - Create appropiate overrides in the children.
@@ -132,7 +132,7 @@ Things to test:
 7. **Deposit:** 
     - Applies to: all children.
 
-## Part 4
+## Part 4 - Taxable Interface.
 
 > Based on the requirements, Chequing implements a Taxable interface. 
 > Add a void tax(double income) method inside Taxable and override it inside Chequing.
@@ -142,7 +142,13 @@ Things to test:
 >   - Assert the resulting balance.
 
 
-## Part 5
+### Notes
+I implemented tax() so that it is called from deposit() any time a deposit is made exceeding the taxfree limit.
+
+However, the solution calls tax() independantly from deposit() inside the unit test. I dont see how that approach is better or satisfies the requirements better, so I'm letting my solution stand unless it interferes with tasks further down the line.
+
+
+## Part 5 - Transaction class.
 The goal of part 5 is to create the Transaction class.
 
 
@@ -172,4 +178,47 @@ return (type) + "    " +
 2. Add a setup method for unit tests
 3. Create unit test: correctDateTest()
 
+### Notes
+To constrain the field *type* to only be *withdraw* or *deposit*:
+
+```java
+// Declare an enum Type
+public enum Type {WITHDRAW, DEPOSIT};
+// Declare type field as Type
+private Type type;
+```
+
+
+To make transaction objects "sortable" from lowest to highest timestamp:
+
+```java
+// Make Transaction implement the Comparable interface
+public class Transaction implements Comparable<Transaction> {
+    /* ... etc ... */
+    @Override
+    public int compareTo(Transaction specifiedObject) {
+        return Double.compare(this.getTimestamp(), specifiedObject.getTimestamp());
+    }
+}
+```
+
+Getting a readable date from *long timestamp*:
+```java
+import java.text.SimpleDateFormat;
+import java.util.Date;
+```
+```java
+public String getReadableDate() {
+    Date date = new Date(this.getTimestamp()*1000);
+    SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
+    formatter.setLenient(false);
+    String readableDate = formatter.format(date);
+
+    return readableDate;
+}
+```
+- Date(long milliseconds) is a constructor that creates a date object for a given value of milliseconds since the date "January 1, 1970, 00:00:00 GMT".
+- SimpleDateFormat can be used for: 
+    - Formatting -> Date to String conversion.
+    - Parsing -> String to Date conversion.
 

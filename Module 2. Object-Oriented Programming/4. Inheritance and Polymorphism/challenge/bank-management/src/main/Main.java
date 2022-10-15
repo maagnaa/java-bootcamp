@@ -6,8 +6,8 @@ import src.main.model.account.*;
 
 public class Main {
 
-   static String ACCOUNTS_FILE = "src/main/data/accounts.txt";            
-   static String TRANSACTIONS_FILE = "src/main/data/transactions.txt";
+    static String ACCOUNTS_FILE = "src/main/data/accounts.txt";            
+    static String TRANSACTIONS_FILE = "src/main/data/transactions.txt";
 
     public static void main(String[] args) {
         Chequing chequing = new Chequing("f84c43f4-a634-4c57-a644-7602f8840870", "Michael Scott", 1524.51);

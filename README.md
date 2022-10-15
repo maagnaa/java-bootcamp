@@ -1685,7 +1685,7 @@ public class Shirt extends Product {
         SMALL, MEDIUM, LARGE
     }
 
-    public Shirt(String size, double price, String color, String brand) {
+    public Shirt(Size size, double price, String color, String brand) {
         super(price, color, brand);
         this.size = size;
     }
@@ -1695,11 +1695,11 @@ public class Shirt extends Product {
         this.size = source.size;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return this.size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 

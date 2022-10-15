@@ -7,13 +7,10 @@ public abstract class Account {
     private String name;
     private double balance;
 
-    public Account(String id, String name, double balance) {
-        try{
-            checkNullOrEmpty(id);
-            checkNullOrEmpty(name);
-        }catch(IllegalArgumentException e){
-            System.out.println(e.getMessage());
-        }
+    public Account(String id, String name, double balance) throws IllegalArgumentException {
+        checkNullOrBlank(id,"id @ Account() cannot be null or blank.");
+        checkNullOrBlank(name, "name @ Account() cannot be null or blank.");
+        
         this.id = id;
         this.name = name;
         this.balance = balance;
@@ -29,7 +26,8 @@ public abstract class Account {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(String id) throws IllegalArgumentException {
+        checkNullOrBlank(id,"id @ setId() cannot be null or blank.");
         this.id = id;
     }
 
@@ -37,7 +35,8 @@ public abstract class Account {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws IllegalArgumentException {
+        checkNullOrBlank(name,"name @ setName() cannot be null or blank.");
         this.name = name;
     }
 
@@ -58,9 +57,9 @@ public abstract class Account {
         return Double.parseDouble(formatter.format(amount));
     }
 
-    public void checkNullOrEmpty(String string) throws IllegalArgumentException {
+    public void checkNullOrBlank(String string, String msg) throws IllegalArgumentException {
         if(string == null || string.isBlank()){
-            throw new IllegalArgumentException("String parameter cannot be null or empty");
+            throw new IllegalArgumentException(msg);
         }
     }
 
