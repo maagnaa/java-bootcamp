@@ -33,7 +33,7 @@ Notes and summary of key learnings and takeaways is found below the content over
     - [X] Summary Assignment - [Game of TicTacToe](/Module-1-Introduction-to-Java/6-Arrays/TicTacToe/TicTacToe.java)
     - Completed 23/09/22
 7. Capstone Project 
-    - [X] Module Summary Assignment - **Game of Hangman**
+    - [X] Module Summary Assignment - [Game of Hangman](/Module-1-Introduction-to-Java/7-Capstone-Project/)
     - Completed 23/09/22
 
 ### Module 2 - Object-Oriented Programming
