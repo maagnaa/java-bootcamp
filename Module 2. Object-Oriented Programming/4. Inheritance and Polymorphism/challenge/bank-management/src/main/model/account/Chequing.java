@@ -23,8 +23,10 @@ public class Chequing extends Account implements Taxable{
     }
 
     @Override
-    public double tax(double income) {
-        return round(income*INCOME_TAX_RATE);        
+    public void tax(double income) {
+        double balance = super.getBalance();
+        double tax = round((income-TAXFREE_INCOME_TRESHOLD)*INCOME_TAX_RATE);      
+        super.setBalance(balance-tax);  
     }
     @Override
     protected double round(double amount) {
@@ -33,11 +35,7 @@ public class Chequing extends Account implements Taxable{
 
     @Override
     public void deposit(double amount) {
-        double depositAmount = amount;
-        if(amount>TAXFREE_INCOME_TRESHOLD){
-            depositAmount = amount - tax(amount);
-        }
-        super.setBalance(super.getBalance()+depositAmount);        
+        super.setBalance(super.getBalance()+amount);        
     }
 
     @Override

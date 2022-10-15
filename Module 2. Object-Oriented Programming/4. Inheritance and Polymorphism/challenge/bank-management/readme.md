@@ -312,7 +312,7 @@ The goal of part 7 is to finalize the Bank class.
 4. Test if the bank deduces taxes from taxable accounts.
 
 Unit Test List:
-- succesfulTransactionsRecordTest()
+- succesfulTransactionsTest()
 - failedTransactionTest()
 - taxDeductionTest()
 
@@ -320,7 +320,7 @@ Unit Test List:
 
 ### Notes
 
-getTransaction - using streams to filter for accountId
+##### getTransaction - using streams to filter for accountId
 ```java
     public Transaction[] getTransactions(String accountId){
         List<Transaction> matchList = this.transactions.stream()
@@ -333,4 +333,71 @@ getTransaction - using streams to filter for accountId
 By default, toArray returns Object[]. In the return statement, we force toArray to return a specific type using this syntax:
 ```java
 list.toArray(new CustomClass[list.size()]);
+```
+
+##### getIncome - using Arrays-stream() + mapToDouble + sum
+```java
+private double getIncome(Taxable account){
+    String accountId = ((Chequing)account).getId();                     
+
+        Transaction[] transactions = getTransactions(accountId);
+
+        return Arrays.stream(transactions)                              
+                    .mapToDouble((transaction) -> {                 
+                        switch(transaction.getType()){              
+                            case WITHDRAW:                          
+                                return -transaction.getAmount();
+                            case DEPOSIT:                          
+                                return  transaction.getAmount();    
+                            default: return 0;                      
+                        }}).sum();                      
+                                                            
+    }
+```
+
+###### Breakdown comments:
+
+**Getting accountId**
+
+Note how we typecast the account parameter declared as type Taxable to chequing. 
+```java
+String accountId = ((Chequing)account).getId();                     
+```
+Taxable, as an interface, is not really a class. Therefore, in order to be able to call any methods from account we must typecast to an object of a class which implements the taxable interface. 
+
+**Treating Array as stream**
+Notice how we do not treat the transactions array as a stream like this:
+```java
+transactions.stream()
+```
+The above syntax would be right if transactions was an object of a class which implemented the List interface. However, since transactions is just an array, it requires that we call the Arrays.stream() method, which, according to doc:
+
+> Returns a sequential stream with the specified Array at its source.
+
+Note that using this method requires us to import the Arrays class.
+```java
+import java.util.Arrays;
+```
+This class provides array utility.
+
+**Intermediate Operation**
+The intermediate operation in this pipeline is .mapToDouble().
+The lambda expression of this operation needs to return a Double value for each element in the transactions array.
+
+In this case we want to return the transaction amount by calling .getAmount() for each transaction in the array. 
+However, the value should be negative for withdrawal transactions. 
+
+We discriminate whether the value returned should be a negative Double or a positive Double by checking the transaction type with transaction.getType.
+
+**Terminal Operation**
+The terminal operation in this pipeline is .sum().
+
+The terminal operation receives a Double value for each transaction in the transactions array.
+
+The values received are summed and a double is returned.
+
+**Checking if an object implements the Taxable interface**
+Syntax:
+```java
+Taxable.class.isAssignableFrom(account.getClass())
 ```

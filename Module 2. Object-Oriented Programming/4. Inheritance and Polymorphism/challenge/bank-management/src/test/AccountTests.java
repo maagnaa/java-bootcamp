@@ -170,9 +170,11 @@ public class AccountTests {
     @Test
     public void incomeTaxTest(){
         double amount = 4000;
-        double expected = chequing.getBalance() + (amount - amount*INCOME_TAX_RATE);
+        double tax = round((amount - TAXFREE_INCOME_TRESHOLD)*INCOME_TAX_RATE);
+        double expected = chequing.getBalance() + amount - tax;
 
         chequing.deposit(amount);
+        ((Chequing) chequing).tax(amount);
         assertEquals(expected, chequing.getBalance());
     }
     /*  Loan Deposit Test
