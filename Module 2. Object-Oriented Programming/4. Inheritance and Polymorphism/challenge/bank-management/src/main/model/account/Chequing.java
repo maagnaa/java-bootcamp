@@ -21,8 +21,7 @@ public class Chequing extends Account {
 
     @Override
     public void deposit(double amount) {
-        // TODO Auto-generated method stub
-        
+        super.setBalance(super.getBalance()+amount);        
     }
 
     @Override
@@ -31,9 +30,14 @@ public class Chequing extends Account {
 
         if(amount > balance) {                              // Overdraft
             if( OVERDRAFT_LIMIT < amount-balance ) {        // Overdraft limit exceeded
+                System.out.println("Withdrawal from chequing account aborted.\n"+
+                                    "Expected overdraft of $"+(amount-balance)+
+                                    " would exceed the overdraft limit of $"+OVERDRAFT_LIMIT);
                 return false;
             }else{                                          // Overdraft within limit
                 super.setBalance(round(balance - amount - OVERDRAFT_FEE)); 
+                System.out.println("Overdraft withdrawal from chequing account completed.\n"+
+                                   "An overdraft fee of $"+OVERDRAFT_FEE+" was applied.");
                 return true;
             }
         }

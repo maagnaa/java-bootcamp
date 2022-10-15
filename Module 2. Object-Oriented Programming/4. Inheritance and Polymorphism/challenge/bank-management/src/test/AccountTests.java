@@ -3,6 +3,7 @@ package src.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+
 import java.text.DecimalFormat;
 
 
@@ -12,12 +13,23 @@ import org.junit.Test;
 import src.main.model.account.*;;
 
 public class AccountTests {
-
-    static final double OVERDRAFT_FEE = 5.5;
+    static final double  INTEREST_RATE = 1.2;
+    static final double  OVERDRAFT_FEE = 5.5;
+    static final double WITHDRAWAL_FEE = 5.0;
 
     Account chequing;
     Account savings;
     Account loan;
+
+    /*  Utility: Round
+     * 
+     *      To round a double to the specified Decimal Format
+     */
+    protected double round(double amount) {
+        DecimalFormat formatter = new DecimalFormat("#.##");
+        return Double.parseDouble(formatter.format(amount));
+    }
+
 
     @Before
     public void setup(){
@@ -28,8 +40,8 @@ public class AccountTests {
 
     /*  Withdrawal Test
      *
-     *     Test a basic withdrawal with no fees or interest charges 
-     *     Applies to: chequing
+     *     Test a basic withdrawal from chequing account 
+     *     with no fees or interest charges 
      */
     @Test
     public void withdrawalTest(){
@@ -42,10 +54,11 @@ public class AccountTests {
 
     /*  Overdraft Test
      *
-     *      Test a withdrawal where: (amount > balance) && ((amount-balance) < 200)
-     *      An overdraft fee of 5.50 should be applied.
+     *      Test a withdrawal from chequing account where:
+     *          (amount > balance) && ((amount-balance) < 200)
      * 
-     *      Applies to: chequing.
+     *      Verify that an overdraft fee of 5.50 is applied.
+     * 
      */
     @Test
     public void overdraftTest(){
@@ -59,9 +72,13 @@ public class AccountTests {
 
     /* Overdraft Limit Test
      * 
-     *      Test a withdrawal where: (amount > balance) && ((amount-balance) > 200)
-     *      The withdrawal should be blocked and return zero.
+     *      Test a withdrawal from chequing account where:
+     *          (amount > balance) && ((amount-balance) > 200)
+     * 
+     *      Verify that the withdrawal is blocked (return false)
+     *      and that the account balance remains unchanged. 
      */
+
     @Test
     public void overdraftLimitTest(){
         double amount = 1726;
@@ -71,9 +88,85 @@ public class AccountTests {
         assertEquals(expected, chequing.getBalance());
     }
 
+    /*  Withdrawal Fee Test
+     * 
+     *      Test a withdrawal from savings account.
+     * 
+     *      Verify that a withdrawal fee of 5.0 is applied.
+     */
+    @Test
+    public void withdrawalFeeTest(){
+        double amount = 100;
+        double expected = savings.getBalance() - amount - WITHDRAWAL_FEE;
 
-    protected double round(double amount) {
-        DecimalFormat formatter = new DecimalFormat("#.##");
-        return Double.parseDouble(formatter.format(amount));
+        savings.withdraw(amount);
+        assertEquals(expected, savings.getBalance());
+    }
+
+    /*  Withdrawal Interest Test
+     * 
+     *      Test a withdrawal from loan account.
+     *      The withdrawal amount should be added, instead of 
+     *      subtracted, to the balance.
+     *      
+     *      Verify that an interest rate of 2% is charged.
+     */
+    @Test 
+    public void withdrawalInterestTest(){
+        double amount = 2434.31;
+        double expected = round(loan.getBalance() + amount*INTEREST_RATE);
+
+        loan.withdraw(amount);
+        assertEquals(expected, loan.getBalance());
+
+    }
+
+    /*  Withdrawal Limit Test
+     * 
+     *      Test a withdrawal from loan account.
+     * 
+     *      Check that a withdrawal that would cause the total debt
+     *      to exceed 10000 is blocked (return false) and that 
+     *      the account balance remains unchanged.
+     */
+    @Test
+    public void withdrawalLimitTest(){
+        double amount = 7463.69;
+        double balance = loan.getBalance();
+
+        assertFalse(loan.withdraw(amount));
+        assertEquals(balance, loan.getBalance());
+    }
+
+    /*  Deposit test
+     * 
+     *      Test deposit to savings and chequing account.
+     */
+    @Test
+    public void depositTest(){
+        double amount = 5000;
+        double expectedChequing = chequing.getBalance() + amount;
+        double expectedSavings = savings.getBalance() + amount;
+
+        chequing.deposit(amount);
+        savings.deposit(amount);
+
+        assertEquals(expectedChequing, chequing.getBalance());
+        assertEquals(expectedSavings, savings.getBalance());
+    }
+
+    /*  Loan Deposit Test
+     * 
+     *      Test deposit to loan account. 
+     *      
+     *      The deposited amount should be subtracted instead of added.
+     */
+    @Test
+    public void loanDepositTest(){
+        double amount = 1000;
+        double expected = loan.getBalance() - amount;
+
+        loan.deposit(amount);
+        assertEquals(expected, loan.getBalance());
     }
 }

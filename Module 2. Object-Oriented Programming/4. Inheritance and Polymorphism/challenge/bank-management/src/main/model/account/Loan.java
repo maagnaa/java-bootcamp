@@ -1,6 +1,8 @@
 package src.main.model.account;
 
 public class Loan extends Account {
+    
+    static final double INTEREST_RATE = 1.2;
 
     public Loan (String id, String name, double balance){
         super(id, name, balance);
@@ -11,15 +13,30 @@ public class Loan extends Account {
     }
 
     @Override
+    protected double round(double amount) {
+        return super.round(amount);
+    }
+
+    @Override
     public void deposit(double amount) {
-        // TODO Auto-generated method stub
-        
+        super.setBalance(super.getBalance()-amount);
     }
 
     @Override
     public boolean withdraw(double amount) {
-        // TODO Auto-generated method stub
-        return false;
+
+        double balance = super.getBalance();
+        double newBalance = round(balance + amount*INTEREST_RATE);
+
+        if(newBalance>10000){
+            System.out.println("Withdrawal from savings account aborted.\n" + 
+                                "Expected loan balance $"+newBalance +
+                                " would exceed the loan limit of $10.000");
+            return false;
+        }
+        
+        super.setBalance(newBalance);
+        return true;
     }
 
 }

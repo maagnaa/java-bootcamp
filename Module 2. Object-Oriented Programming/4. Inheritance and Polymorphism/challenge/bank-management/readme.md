@@ -101,26 +101,32 @@ Part 2 is finished by creating some Account objects in main and printing them to
 
 - Define abstract methods inside the parent class for the common methods: withdraw and deposit.
 - Create appropiate overrides in the children.
-- Create [unit tests](/src/test/AccountTests.java) that meaningfully test that the method overrides are compliant with requirements.
+- Create [unit tests](src/test/AccountTests.java) that meaningfully test that the method overrides are compliant with requirements.
 
 Things to test:
 1. **Withdrawal:** 
     - Applies to: chequing.
     - Basic withdrawal with no fees or interest charges.
+    - Withdraw amount: 1140.
 2. **Overdraft:** 
     - Applies to: chequing.
     - The chequing account charges an overdraft fee of $5.50 if the amount being withdrawn exceeds the account balance.
+    - Withdraw amount: 1534.43.
 3. **Overdraft limit:** 
     - Applies to: chequing.
     - The overdraft limit is $200.00 dollars.
+    - Withdraw amount: 1726.
 4. **Withdrawal fee:** 
     - Applies to: savings.
     - The savings account charges a $5.00 fee for every withdrawal.
+    - Withdraw amount: 100.
 5. **Withdrawal interest:** 
     - Applies to: loan.
     - Every withdrawal is charged a fixed interest rate of 2%.
+    - Withdraw amount: 2434.31.
 6. **Withdrawal limit:**
     - Applies to: loan.
-    - A withdrawal can't made if the debt exceeds $10,000.
+    - A withdrawal can't made if the *debt* exceeds $10,000.
+    - Withdraw amount: 7463.69.
 7. **Deposit:** 
     - Applies to: all children.
