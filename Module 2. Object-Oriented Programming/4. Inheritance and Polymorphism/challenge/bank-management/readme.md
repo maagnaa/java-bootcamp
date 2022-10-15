@@ -37,6 +37,7 @@ The [requirements](src/requirements.txt) for specified for this assignment are:
 Additionally, unit tests are required even though not specified in the [requirements file](src/requirements.txt).
 
 <hr>
+
 ## Part 1
 
 #### Task 1
@@ -62,7 +63,7 @@ The abstract class will define the following methods for the children to overrid
 - withdraw
 - deposit
 
-#### Task 2
+##### Task 2
 >Based on the requirements, identify:
 >
 > - The interface.
@@ -80,7 +81,7 @@ The goal of Part 2 is to create the parent class: [Account](src/main/model/accou
 4. Add constructor and copy constructor to every child class.
 5. Override toString() method for Account class.
 6. Create test objects and print them.
-7. Add quality control / throw exceptions where needed.
+7. Add quality control; throw Exceptions where needed. 
 
 The format given for the desired toString is:
 ```java
@@ -139,4 +140,36 @@ Things to test:
 >   - Deposit 4000 into the chequing account.
 >   - Call tax() for an income of 4,000.
 >   - Assert the resulting balance.
+
+
+## Part 5
+The goal of part 5 is to create the Transaction class.
+
+
+#### Transaction Tasks:
+1. Create the class and add the fields
+    - type (can only be withdraw or deposit)
+    - long timestamp
+    - String id
+    - double amount
+2. Add a constructor and copy constructor.
+3. Add getters and setters.
+4. Override equals & hashCode
+5. Make transaction objects "sortable" from lowest to highest timestamp.
+6. Override toString()
+7. Add quality control; throw Exceptions where needed. 
+
+Specified toString format:
+```java
+return (type) + "    " +
+    "\t" + date dd-mm-yyyy + "" +
+    "\t" + id + "" +
+    "\t$" + amount + "";
+```
+
+#### Unit Testing Tasks
+1. Create a test file, TransactionTests.java @ /src/test/ 
+2. Add a setup method for unit tests
+3. Create unit test: correctDateTest()
+
 
