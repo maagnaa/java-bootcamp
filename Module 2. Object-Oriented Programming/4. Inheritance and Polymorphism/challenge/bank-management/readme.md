@@ -222,23 +222,23 @@ public String getReadableDate() {
     - Formatting -> Date to String conversion.
     - Parsing -> String to Date conversion.
 
-## Part 6
+## Part 6 - Bank Class pt.1
 
-The goal of part 6 is to create the Bank class.
+The goal of part 6 is to start the Bank class.
 
 
-Bank Class Tasks:
+#### Bank Class Tasks
 1. Create a Bank class with fields:
     - ArrayList<Account> accounts;
     - ArrayList<Transaction> transactions;
 2. Add a constructor that receives no parameters and initializes each ArrayList.
 3. Define an addAccount method that adds an account to the accounts ArrayList.
 
-Account Class & Children Tasks:
+#### Account Class & Children Tasks
 1. Create an abstract method called clone().
 2. Override clone() for all children of Account.
 
-Main Tasks:
+#### Main Tasks
 1. Test clone method. 
 
 ### Notes
@@ -288,4 +288,49 @@ Then we can, from the Bank class, comfortably:
 public void addAccount(Account account){
     this.accounts.add(account.clone());    
 }
+```
+
+## Part 7 - Bank Class pt. 2
+
+The goal of part 7 is to finalize the Bank class.
+
+#### Bank Class Tasks
+1. Create an addTransaction() method.
+2. Create a getTransaction() method which returns an array of transactions whose id matches the accountId.
+3. Check that getTransaction() works as expected from main().
+4. Create a getAccount() method which returns an account whose id matches a transaction.
+5. Check that getAccount() works as expected from main().
+6. Make addTransaction() private to forbid the caller from adding transactions. That is the banks job!
+7. Make withdrawTransaction() and depositTransaction() methods. Create unit tests for them before writing code!
+8. Make withdrawTransaction() and depositTransaction() private. Create an executeTransaction() method that calls either private method according to the transaction type.
+9. Create a private method getIncome(). <- *Here is where my Taxable.tax() method shows itself to be broken :')*
+
+#### Other Unit Testing Tasks
+1. Create a setup method.
+2. Test if the bank keeps a record of successful transactions.
+3. Test if the bank ignores failed transactions.
+4. Test if the bank deduces taxes from taxable accounts.
+
+Unit Test List:
+- succesfulTransactionsRecordTest()
+- failedTransactionTest()
+- taxDeductionTest()
+
+
+
+### Notes
+
+getTransaction - using streams to filter for accountId
+```java
+    public Transaction[] getTransactions(String accountId){
+        List<Transaction> matchList = this.transactions.stream()
+                                        .filter((transaction)->transaction.getId().equals(accountId))
+                                        .collect(Collectors.toList());
+        
+        return matchList.toArray(new Transaction[matchList.size()]);
+    }
+```
+By default, toArray returns Object[]. In the return statement, we force toArray to return a specific type using this syntax:
+```java
+list.toArray(new CustomClass[list.size()]);
 ```
