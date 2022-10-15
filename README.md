@@ -25,12 +25,12 @@ Notes and summary of key learnings and takeaways is found below the content over
     - Completed 20/09/22
 5. [Loops](https://github.com/maagnaa/java-bootcamp#15-loops)
     - [X] 11 Workbooks
-    - [X] Summary Assignment - **Game of Pokerito**
-    - [X] Summary Assignment - **Game of BlackJack**
+    - [X] Summary Assignment - [Game of Pokerito](/Module-1-Introduction-to-Java/5-Loops/Game-of-Pokerito/Pokerito.java)
+    - [X] Summary Assignment - [Game of BlackJack](/Module-1-Introduction-to-Java/5-Loops/Game-of-Blackjack/Blackjack.java)
     - Completed 20/09/22
 6. [Arrays](https://github.com/maagnaa/java-bootcamp#16-arrays)
     - [X] 14 Workbooks
-    - [X] Summary Assignment - **Game of TicTacToe**
+    - [X] Summary Assignment - [Game of TicTacToe](/Module-1-Introduction-to-Java/6-Arrays/TicTacToe/TicTacToe.java)
     - Completed 23/09/22
 7. Capstone Project 
     - [X] Module Summary Assignment - **Game of Hangman**
@@ -39,20 +39,20 @@ Notes and summary of key learnings and takeaways is found below the content over
 ### Module 2 - Object-Oriented Programming
 1. [Objects](https://github.com/maagnaa/java-bootcamp#21-classes-and-objects)
     - [X] Workbook: airline-reservation-system
-    - [X] Summary Assignment: vending-machine
+    - [X] Summary Assignment: [vending-machine](/Module-2-Object-Oriented-Programming/1_Classes_and_Objects/vending-machine/)
     - Completed 26/09/22
 2. [Debugging and Exception Handling](https://github.com/maagnaa/java-bootcamp#22-debugging-and-exception-handling) 
     - [X] 10 Workbooks - Debugging
     - Completed 28/09/22
     - [X] 4 Workbooks - Exception Handling
-    - [x] Summary Assignment
+    - [x] Summary Assignment: [shopping-cart](/Module-2-Object-Oriented-Programming/2_Debugging_and_Exception_Handling/Challenge/shopping-cart/) 
     - Completed 01/10/22
 3. [Unit Testing, Stream API and Lambda Expressons](https://github.com/maagnaa/java-bootcamp#23-unit-testing-stream-api-and-lambda-expressions)
     - [x] 2 Workboks
-    - [x] Summary Assignment
+    - [x] Summary Assignment: [quidditch-game](/Module-2-Object-Oriented-Programming/3_Unit_Testing_Stream_API_and_Lambda%20Expressions/Workbooks/quidditch-game/)
     - Completed 11/10/22
 4. [Inheritance and Polymorphism](https://github.com/maagnaa/java-bootcamp#24-inheritance-and-polymorphism)
-    - [x] Summary Assignment
+    - [x] Summary Assignment: [bank-management](/Module-2-Object-Oriented-Programming/4_Inheritance_and_Polymorphism/challenge/bank-management/)
     - Completed 15/10/22  \\(ᵔᵕᵔ)/
 5. Capstone Project 
     - [ ] Module Summary Assignment
