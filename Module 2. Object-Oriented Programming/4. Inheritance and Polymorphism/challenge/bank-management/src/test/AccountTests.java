@@ -10,12 +10,16 @@ import java.text.DecimalFormat;
 import org.junit.Before;
 import org.junit.Test;
 
-import src.main.model.account.*;;
+import src.main.model.account.*;
 
 public class AccountTests {
-    static final double  INTEREST_RATE = 1.2;
-    static final double  OVERDRAFT_FEE = 5.5;
+    static final double OVERDRAFT_FEE = 5.5;
     static final double WITHDRAWAL_FEE = 5.0;
+
+    static final double INTEREST_RATE = 1.02;
+
+    static final double TAXFREE_INCOME_TRESHOLD = 3000;
+    static final double INCOME_TAX_RATE = 0.15;
 
     Account chequing;
     Account savings;
@@ -144,7 +148,7 @@ public class AccountTests {
      */
     @Test
     public void depositTest(){
-        double amount = 5000;
+        double amount = 500;
         double expectedChequing = chequing.getBalance() + amount;
         double expectedSavings = savings.getBalance() + amount;
 
@@ -155,6 +159,22 @@ public class AccountTests {
         assertEquals(expectedSavings, savings.getBalance());
     }
 
+    /*  Income Tax Test 
+     * 
+     *      Test deposit to chequing account where
+     *      amount > TAXFREE_INCOME_LIMIT.
+     * 
+     *      Check that a tax of 15% is applied to the deposit.
+     */
+
+    @Test
+    public void incomeTaxTest(){
+        double amount = 4000;
+        double expected = chequing.getBalance() + (amount - amount*INCOME_TAX_RATE);
+
+        chequing.deposit(amount);
+        assertEquals(expected, chequing.getBalance());
+    }
     /*  Loan Deposit Test
      * 
      *      Test deposit to loan account. 
@@ -169,4 +189,5 @@ public class AccountTests {
         loan.deposit(amount);
         assertEquals(expected, loan.getBalance());
     }
+
 }

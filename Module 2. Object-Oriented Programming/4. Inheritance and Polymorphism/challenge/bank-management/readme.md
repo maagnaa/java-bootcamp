@@ -130,3 +130,13 @@ Things to test:
     - Withdraw amount: 7463.69.
 7. **Deposit:** 
     - Applies to: all children.
+
+## Part 4
+
+> Based on the requirements, Chequing implements a Taxable interface. 
+> Add a void tax(double income) method inside Taxable and override it inside Chequing.
+> Create a unit test named incomeTax().
+>   - Deposit 4000 into the chequing account.
+>   - Call tax() for an income of 4,000.
+>   - Assert the resulting balance.
+

@@ -2,7 +2,7 @@ package src.main.model.account;
 
 public class Loan extends Account {
     
-    static final double INTEREST_RATE = 1.2;
+    static final double INTEREST_RATE = 1.02;
 
     public Loan (String id, String name, double balance){
         super(id, name, balance);

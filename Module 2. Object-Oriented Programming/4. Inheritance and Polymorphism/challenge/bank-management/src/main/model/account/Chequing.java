@@ -1,9 +1,13 @@
 package src.main.model.account;
 
-public class Chequing extends Account { 
+import src.main.model.account.impl.Taxable;
+
+public class Chequing extends Account implements Taxable{ 
 
     static final double OVERDRAFT_FEE = 5.5;
     static final double OVERDRAFT_LIMIT = 200.;
+    static final double TAXFREE_INCOME_TRESHOLD = 3000;
+    static final double INCOME_TAX_RATE = 0.15;
 
     public Chequing (String id, String name, double balance){
         super(id, name, balance);
@@ -13,7 +17,10 @@ public class Chequing extends Account {
         super(source.getId(),source.getName(),source.getBalance());
     }
 
-
+    @Override
+    public double tax(double income) {
+        return round(income*INCOME_TAX_RATE);        
+    }
     @Override
     protected double round(double amount) {
         return super.round(amount);
@@ -21,7 +28,11 @@ public class Chequing extends Account {
 
     @Override
     public void deposit(double amount) {
-        super.setBalance(super.getBalance()+amount);        
+        double depositAmount = amount;
+        if(amount>TAXFREE_INCOME_TRESHOLD){
+            depositAmount = amount - tax(amount);
+        }
+        super.setBalance(super.getBalance()+depositAmount);        
     }
 
     @Override
